@@ -20,21 +20,26 @@ from django.conf import settings
 from rest_framework import routers
 from simulador.resources.account import LoginView, AccountViewSet
 from simulador.resources.account import LogoutView
+from simulador.resources.battalion import BattalionViewSet
 from simulador.resources.city import CityViewSet
+from simulador.resources.company import CompanyViewSet
 from simulador.resources.grade import GradeViewSet
 from simulador.resources.people import PeopleViewSet
+from simulador.resources.regiment import RegimentViewSet
+from simulador.resources.squadron import SquadronViewSet
 
-router = routers.DefaultRouter()
 router = routers.DefaultRouter()
 
 router.register(r'Account', AccountViewSet)
+router.register(r'Battalion', BattalionViewSet)
 router.register(r'City', CityViewSet)
+router.register(r'Company', CompanyViewSet)
 router.register(r'Grade', GradeViewSet)
 router.register(r'People', PeopleViewSet)
+router.register(r'Regiment', RegimentViewSet)
+router.register(r'Squadron', SquadronViewSet)
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
