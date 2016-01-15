@@ -4,9 +4,10 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser,
     AnonymousUser)
-from rest_framework import viewsets, views, serializers, status
+from rest_framework import viewsets, views, serializers, status, filters
 from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.response import Response
+from simulador.pagination import BasePagination
 from simulador.resources.city import CitySerializer, City
 from simulador.resources.military_grade import MilitaryGrade, MilitaryGradeSerializer
 from simulador.resources.people import People, PeopleSerializer
@@ -101,8 +102,9 @@ class AccountSerializer(serializers.ModelSerializer):
         model = Account
 
         fields = (
-            'is_admin', 'is_staff', 'is_superuser', 'is_instructor', 'id', 'is_active', 'username', 'email', 'image', 'phone_number',
-            'gender', 'ci', 'first_name', 'last_name', 'date_of_birth', 'city', 'military_grade', 'password')
+            'is_admin', 'is_staff', 'is_superuser', 'is_instructor', 'id', 'is_active', 'username', 'email', 'image',
+            'phone_number', 'gender', 'ci', 'first_name', 'last_name', 'date_of_birth', 'city', 'military_grade',
+            'password', 'created_at', 'updated_at')
 
     def create(self, validated_data):
         request = self.context.get('request', None)
@@ -138,6 +140,11 @@ class AccountViewSet(viewsets.ModelViewSet):
     # permission_classes = (IsAdminUser,)
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
+    pagination_class = BasePagination
+    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
+    filter_fields = (
+        'first_name', 'last_name', 'is_admin', 'is_staff', 'is_superuser', 'is_instructor', 'id', 'is_active',)
+    search_fields = ('$first_name', '$last_name')
 
 
 class LoginSerializer(serializers.Serializer):
@@ -151,6 +158,7 @@ class LoginView(views.APIView):
     def get_serializer_class(self):
         return LoginSerializer
 
+    # noinspection PyTypeChecker
     def post(self, request, format=None):
         data = request.data
         username = data.get('username', None)
@@ -165,9 +173,24 @@ class LoginView(views.APIView):
             if account.is_active:
                 token = Token.objects.get_or_create(user=account)
                 serialized = AccountSerializer(account)
+
+                military_data = MilitaryGradeSerializer(
+                    MilitaryGrade.objects.filter(id=serialized.data['military_grade']), many=True)
+                city_data = CitySerializer(
+                    City.objects.filter(id=serialized.data['city']), many=True)
+                user_info = serialized.data
+                if len(military_data.data) > 0:
+                    user_info['military_grade'] = military_data.data[0]
+                else:
+                    user_info['military_grade'] = military_data.data
+
+                if len(city_data.data) > 0:
+                    user_info['city'] = city_data.data[0]
+                else:
+                    user_info['city'] = city_data.data
                 return Response({
                     'token': token[0].key,
-                    'user': serialized.data
+                    'user': user_info
                 })
 
             return Response(

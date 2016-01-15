@@ -1,8 +1,9 @@
 from django.db import models
-from rest_framework import viewsets, views, serializers
+from rest_framework import viewsets, filters, serializers
 
 
 # from simulador.models import City
+from simulador.pagination import BasePagination
 
 
 class City(models.Model):
@@ -27,4 +28,8 @@ class CitySerializer(serializers.ModelSerializer):
 class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()
     serializer_class = CitySerializer
+    pagination_class = BasePagination
+    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
+    filter_fields = ('id', 'name', 'short')
+    search_fields = ('$name',)
     # permission_classes = (IsAuthenticated,)
