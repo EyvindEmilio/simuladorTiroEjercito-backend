@@ -10,9 +10,8 @@ from rest_framework.response import Response
 from simulador.pagination import BasePagination
 from simulador.resources.city import CitySerializer, City
 from simulador.resources.military_grade import MilitaryGrade, MilitaryGradeSerializer
-from simulador.resources.people import People, PeopleSerializer
+from simulador.resources.people import PeopleSerializer
 from simulador import strings
-from simulador.resources.squadron import Squadron
 
 GENDERS_CHOICES = (
     ('M', 'Masculino'),
