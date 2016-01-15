@@ -1,0 +1,170 @@
+[
+  {
+    "model": "simulador.City",
+    "pk": 1,
+    "fields": {
+      "name": "La Paz",
+      "short": "LP",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.City",
+    "pk": 2,
+    "fields": {
+      "name": "Cochabamba",
+      "short": "CB",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.City",
+    "pk": 3,
+    "fields": {
+      "name": "Santa Cruz",
+      "short": "SC",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.City",
+    "pk": 4,
+    "fields": {
+      "name": "Beni",
+      "short": "Bn",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.City",
+    "pk": 5,
+    "fields": {
+      "name": "Pando",
+      "short": "Pd",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.City",
+    "pk": 6,
+    "fields": {
+      "name": "Oruro",
+      "short": "Or",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.City",
+    "pk": 7,
+    "fields": {
+      "name": "Potosi",
+      "short": "Pt",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.City",
+    "pk": 8,
+    "fields": {
+      "name": "Tarija",
+      "short": "Tr",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.City",
+    "pk": 9,
+    "fields": {
+      "name": "Sucre",
+      "short": "Sc",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.MilitaryGrade",
+    "pk": 1,
+    "fields": {
+      "name": "Coronel",
+      "short": "Cnl",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.MilitaryGrade",
+    "pk": 2,
+    "fields": {
+      "name": "Teniente Coronel",
+      "short": "Tne. Cnl",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.MilitaryGrade",
+    "pk": 3,
+    "fields": {
+      "name": "Sargento Primero",
+      "short": "Sto I",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.MilitaryGrade",
+    "pk": 4,
+    "fields": {
+      "name": "Sargento Segundo",
+      "short": "Sto II",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.MilitaryGrade",
+    "pk": 5,
+    "fields": {
+      "name": "Cadete 1",
+      "short": "Cad. 1",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.MilitaryGrade",
+    "pk": 6,
+    "fields": {
+      "name": "Cadete 2",
+      "short": "Cad. 2",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {"model": "simulador.Account","pk": 1,"fields": {"is_admin": true,"is_staff": false,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_admin","email": "u1@q.com","image": null,"phone_number": "75001010","gender": "M","ci": "9981765","first_name": "usuario admin","last_name": "appellido 1","date_of_birth": "1993-03-12","city": 1,"military_grade": 1,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 2,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_precticante","email": "u2@q.com","image": null,"phone_number": "75001011","gender": "M","ci": "1000001","first_name": "Usuario practicante","last_name": "appellido 2","date_of_birth": "1993-03-12","city": 1,"military_grade": 2,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 3,"fields": {"is_admin": false,"is_staff": false,"is_superuser": true, "is_instructor": false, "is_active": true,"username": "usuario_superuser","email": "u3@q.com","image": null,"phone_number": "75001012","gender": "M","ci": "1000002","first_name": "Usuario superusuario","last_name": "appellido 3","date_of_birth": "1993-03-12","city": 1,"military_grade": 5,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 4,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_instructor","email": "u4@q.com","image": null,"phone_number": "75001020","gender": "M","ci": "1000003","first_name": "Usuario instructor","last_name": "appellido 4","date_of_birth": "1993-03-12","city": 1,"military_grade": 5,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 5,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_5","email": "u5@q.com","image": null,"phone_number": "75002010","gender": "M","ci": "1000004","first_name": "Usuario 5","last_name": "appellido 5","date_of_birth": "1993-03-12","city": 1,"military_grade": 5,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 6,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_6","email": "u6@q.com","image": null,"phone_number": "75003010","gender": "M","ci": "1000005","first_name": "Usuario 6","last_name": "appellido 6","date_of_birth": "1993-03-12","city": 1,"military_grade": 5,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 7,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_7","email": "u7@q.com","image": null,"phone_number": "75004010","gender": "M","ci": "1000006","first_name": "Usuario 7","last_name": "appellido 7","date_of_birth": "1993-03-12","city": 1,"military_grade": 5,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 8,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_8","email": "u8@q.com","image": null,"phone_number": "75005010","gender": "M","ci": "1000007","first_name": "Usuario 8","last_name": "appellido 8","date_of_birth": "1993-03-12","city": 1,"military_grade": 5,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 9,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_9","email": "u9@q.com","image": null,"phone_number": "75006010","gender": "M","ci": "1000008","first_name": "Usuario 9","last_name": "appellido 9","date_of_birth": "1993-03-12","city": 1,"military_grade": 5,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 10,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_10","email": "u10@q.com","image": null,"phone_number": "77001010","gender": "M","ci": "1000009","first_name": "Usuario 10","last_name": "appellido 10","date_of_birth": "1993-03-12","city": 1,"military_grade": 5,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 11,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_11","email": "u11@q.com","image": null,"phone_number": "78001010","gender": "M","ci": "1000010","first_name": "Usuario 11","last_name": "appellido 11","date_of_birth": "1993-03-12","city": 1,"military_grade": 5,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 12,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_12","email": "u12@q.com","image": null,"phone_number": "70001010","gender": "M","ci": "1000011","first_name": "Usuario 12","last_name": "appellido 12","date_of_birth": "1993-03-12","city": 1,"military_grade": 5,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 13,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_13","email": "u13@q.com","image": null,"phone_number": "79001010","gender": "M","ci": "1000012","first_name": "Usuario 13","last_name": "appellido 13","date_of_birth": "1993-03-12","city": 1,"military_grade": 5,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 14,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_14","email": "u14@q.com","image": null,"phone_number": "75011010","gender": "M","ci": "1000013","first_name": "Usuario 14","last_name": "appellido 14","date_of_birth": "1993-03-12","city": 1,"military_grade": 5,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 15,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_15","email": "u15@q.com","image": null,"phone_number": "75021010","gender": "M","ci": "1000014","first_name": "Usuario 15","last_name": "appellido 15","date_of_birth": "1993-03-12","city": 1,"military_grade": 5,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 16,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_16","email": "u16@q.com","image": null,"phone_number": "75031010","gender": "M","ci": "1000015","first_name": "Usuario 16","last_name": "appellido 16","date_of_birth": "1993-03-12","city": 1,"military_grade": 5,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 17,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_17","email": "u17@q.com","image": null,"phone_number": "75041010","gender": "M","ci": "1000016","first_name": "Usuario 17","last_name": "appellido 17","date_of_birth": "1993-03-12","city": 1,"military_grade": 5,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 18,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false, "is_instructor": false,"is_active": true,"username": "usuario_18","email": "u18@q.com","image": null,"phone_number": "75051010","gender": "M","ci": "1000017","first_name": "Usuario 18","last_name": "appellido 18","date_of_birth": "1993-03-12","city": 1,"military_grade": 5,"password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=","created_at": "1993-03-12","updated_at": "1993-03-12"}}
+]

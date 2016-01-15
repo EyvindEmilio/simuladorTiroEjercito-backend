@@ -24,6 +24,7 @@ from simulador.resources.battalion import BattalionViewSet
 from simulador.resources.city import CityViewSet
 from simulador.resources.company import CompanyViewSet
 from simulador.resources.grade import GradeViewSet
+from simulador.resources.military_grade import MilitaryGradeViewSet
 from simulador.resources.people import PeopleViewSet
 from simulador.resources.regiment import RegimentViewSet
 from simulador.resources.squadron import SquadronViewSet
@@ -35,6 +36,7 @@ router.register(r'Battalion', BattalionViewSet)
 router.register(r'City', CityViewSet)
 router.register(r'Company', CompanyViewSet)
 router.register(r'Grade', GradeViewSet)
+router.register(r'MilitaryGrade', MilitaryGradeViewSet)
 router.register(r'People', PeopleViewSet)
 router.register(r'Regiment', RegimentViewSet)
 router.register(r'Squadron', SquadronViewSet)

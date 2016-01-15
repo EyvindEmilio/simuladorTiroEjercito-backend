@@ -1,11 +1,9 @@
 from django.db import models
 from rest_framework import viewsets, views, serializers
+from simulador.pagination import BasePagination
 
 
-# from simulador.models import City
-
-
-class City(models.Model):
+class MilitaryGrade(models.Model):
     name = models.CharField(max_length=40, unique=True, blank=False)
     short = models.CharField(max_length=10, unique=True)
     created_at = models.DateField(auto_now_add=True)
@@ -18,13 +16,14 @@ class City(models.Model):
         ordering = ['name']
 
 
-class CitySerializer(serializers.ModelSerializer):
+class MilitaryGradeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = City
+        model = MilitaryGrade
         fields = ('id', 'name', 'short', 'created_at', 'updated_at')
 
 
-class CityViewSet(viewsets.ModelViewSet):
-    queryset = City.objects.all()
-    serializer_class = CitySerializer
+class MilitaryGradeViewSet(viewsets.ModelViewSet):
+    queryset = MilitaryGrade.objects.all()
+    serializer_class = MilitaryGradeSerializer
+    pagination_class = BasePagination
     # permission_classes = (IsAuthenticated,)

@@ -7,20 +7,28 @@ from django.contrib.auth.models import (
 from rest_framework import viewsets, views, serializers, status
 from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.response import Response
+from simulador.resources.city import CitySerializer, City
+from simulador.resources.military_grade import MilitaryGrade, MilitaryGradeSerializer
 from simulador.resources.people import People, PeopleSerializer
 from simulador import strings
+from simulador.resources.squadron import Squadron
+
+GENDERS_CHOICES = (
+    ('M', 'Masculino'),
+    ('F', 'Femenino'),
+)
 
 
 class AccountManager(BaseUserManager):
-    def create_user(self, email, password=None, **kwargs):
-        if not email:
+    def create_user(self, ci, password=None, **kwargs):
+        if not ci:
             raise ValueError('Users must have a valid email address.')
 
         if not kwargs.get('username'):
             raise ValueError('Users must have a valid username.')
 
         account = self.model(
-            email=self.normalize_email(email), username=kwargs.get('username')
+            email=self.normalize_email(ci), username=kwargs.get('username')
         )
 
         account.set_password(password)
@@ -28,8 +36,8 @@ class AccountManager(BaseUserManager):
 
         return account
 
-    def create_superuser(self, email, password, **kwargs):
-        account = self.create_user(email, password, **kwargs)
+    def create_superuser(self, ci, password, **kwargs):
+        account = self.create_user(ci, password, **kwargs)
         account.is_admin = True
         account.save()
 
@@ -37,25 +45,34 @@ class AccountManager(BaseUserManager):
 
 
 class Account(AbstractBaseUser):
-    is_admin = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
+    is_instructor = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+
     is_active = models.BooleanField(default=True)
 
-    email = models.EmailField(unique=True)
+    ##Auth
+    ci = models.CharField(max_length=10, help_text='Ejem. 9981765', blank=False, null=False, unique=True)
     username = models.CharField(max_length=40, unique=True)
-
+    ##Info
+    email = models.EmailField(unique=True, null=True, blank=True)
     image = models.ImageField(upload_to="People/images/", default='')
     phone_number = models.CharField(max_length=10, blank=True)
-
-    info = models.ForeignKey(People, default=1)
+    gender = models.CharField(max_length=1, choices=GENDERS_CHOICES)
+    first_name = models.CharField(max_length=20, help_text='Ejem. Juan', unique=False)
+    last_name = models.CharField(max_length=20, help_text='Ejem. Peres', blank=True, null=True, unique=False)
+    date_of_birth = models.DateField(help_text='Ejem. 12/03/1993', blank=True, null=True)
+    city = models.ForeignKey(City, help_text='Id: Ejem. 1', blank=True, null=True)
+    ##Grade
+    military_grade = models.ForeignKey(MilitaryGrade, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = AccountManager()
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'ci'
     REQUIRED_FIELDS = ['username']
 
     def has_perm(self, perm, obj=None):
@@ -65,7 +82,7 @@ class Account(AbstractBaseUser):
         return self.is_superuser
 
     def __unicode__(self):
-        return self.email
+        return "%s" % self.ci
 
     def get_full_name(self):
         return ' '.join([self.username])
@@ -84,8 +101,8 @@ class AccountSerializer(serializers.ModelSerializer):
         model = Account
 
         fields = (
-            'is_admin', 'is_staff', 'is_superuser', 'id', 'is_active', 'username', 'email', 'image', 'phone_number',
-            'info', 'password')
+            'is_admin', 'is_staff', 'is_superuser', 'is_instructor', 'id', 'is_active', 'username', 'email', 'image', 'phone_number',
+            'gender', 'ci', 'first_name', 'last_name', 'date_of_birth', 'city', 'military_grade', 'password')
 
     def create(self, validated_data):
         request = self.context.get('request', None)
@@ -101,13 +118,15 @@ class AccountSerializer(serializers.ModelSerializer):
 
 class AccountDetailSerializer(serializers.ModelSerializer):
     info = PeopleSerializer(read_only=True)
+    city = CitySerializer(read_only=True)
+    military_grade = MilitaryGradeSerializer(read_only=True)
 
     class Meta:
         model = Account
 
         fields = (
             'id', 'username', 'email', 'image', 'phone_number',
-            'info', 'password')
+            'gender', 'ci', 'first_name', 'last_name', 'date_of_birth', 'city', 'military_grade', 'password')
 
 
 class AccountDetailViewSet(viewsets.ModelViewSet):
