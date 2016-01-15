@@ -1,5 +1,5 @@
 from django.db import models
-from rest_framework import viewsets, views, serializers
+from rest_framework import viewsets, filters, serializers
 from simulador.pagination import BasePagination
 from simulador.resources.regiment import Regiment
 
@@ -29,4 +29,7 @@ class BattalionViewSet(viewsets.ModelViewSet):
     queryset = Battalion.objects.all()
     serializer_class = BattalionSerializer
     pagination_class = BasePagination
+    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
+    filter_fields = ('name',)
+    search_fields = ('$name',)
     # permission_classes = (IsAuthenticated,)

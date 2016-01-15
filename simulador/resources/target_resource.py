@@ -1,14 +1,13 @@
 from django.db import models
 from rest_framework import viewsets, filters, serializers
 from simulador.pagination import BasePagination
-from simulador.resources.battalion import Battalion
-from simulador.resources.company import Company
-from simulador.resources.regiment import Regiment
 
 
-class Squadron(models.Model):
+class Target(models.Model):
     name = models.CharField(max_length=40, unique=True, blank=False)
-    company = models.ForeignKey(Company)
+    description = models.TextField(blank=True, null=True)
+    image = models.ImageField(null=True, blank=True)
+    zones = models.IntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -19,15 +18,15 @@ class Squadron(models.Model):
         ordering = ['name']
 
 
-class SquadronSerializer(serializers.ModelSerializer):
+class TargetSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Squadron
-        fields = ('id', 'name', 'company', 'created_at', 'updated_at')
+        model = Target
+        fields = ('id', 'name', 'description', 'image', 'zones', 'created_at', 'updated_at')
 
 
-class SquadronViewSet(viewsets.ModelViewSet):
-    queryset = Squadron.objects.all()
-    serializer_class = SquadronSerializer
+class TargetViewSet(viewsets.ModelViewSet):
+    queryset = Target.objects.all()
+    serializer_class = TargetSerializer
     pagination_class = BasePagination
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
     filter_fields = ('name',)

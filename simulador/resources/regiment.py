@@ -1,5 +1,5 @@
 from django.db import models
-from rest_framework import viewsets, views, serializers
+from rest_framework import viewsets, filters, serializers
 from simulador.pagination import BasePagination
 
 
@@ -27,4 +27,7 @@ class RegimentViewSet(viewsets.ModelViewSet):
     queryset = Regiment.objects.all()
     serializer_class = RegimentSerializer
     pagination_class = BasePagination
+    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
+    filter_fields = ('name',)
+    search_fields = ('$name',)
     # permission_classes = (IsAuthenticated,)

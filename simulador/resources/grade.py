@@ -1,5 +1,5 @@
 from django.db import models
-from rest_framework import viewsets, views, serializers
+from rest_framework import viewsets, filters, serializers
 from simulador.pagination import BasePagination
 
 
@@ -26,4 +26,7 @@ class GradeViewSet(viewsets.ModelViewSet):
     queryset = Grade.objects.all()
     serializer_class = GradeSerializer
     pagination_class = BasePagination
+    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
+    filter_fields = ('name', 'short',)
+    search_fields = ('$name', '$short',)
     # permission_classes = (IsAuthenticated,)
