@@ -3,7 +3,7 @@ from rest_framework.authtoken.models import Token
 from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser,
-    AnonymousUser)
+    AnonymousUser, User)
 from rest_framework import viewsets, views, serializers, status, filters
 from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.response import Response
@@ -12,6 +12,7 @@ from simulador.resources.city import CitySerializer, City
 from simulador.resources.military_grade import MilitaryGrade, MilitaryGradeSerializer
 from simulador.resources.people import PeopleSerializer
 from simulador import strings
+from simulador.resources.user_type import UserType, UserTypeSerializer
 
 GENDERS_CHOICES = (
     ('M', 'Masculino'),
@@ -47,10 +48,9 @@ class AccountManager(BaseUserManager):
 class Account(AbstractBaseUser):
     is_superuser = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
-    is_instructor = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-
     is_active = models.BooleanField(default=True)
+    user_type = models.ForeignKey(UserType, null=False, blank=False)
 
     ##Auth
     ci = models.CharField(max_length=10, help_text='Ejem. 9981765', blank=False, null=False, unique=True)
@@ -101,7 +101,7 @@ class AccountSerializer(serializers.ModelSerializer):
         model = Account
 
         fields = (
-            'is_admin', 'is_staff', 'is_superuser', 'is_instructor', 'id', 'is_active', 'username', 'email', 'image',
+            'is_admin', 'is_staff', 'is_superuser', 'user_type', 'id', 'is_active', 'username', 'email', 'image',
             'phone_number', 'gender', 'ci', 'first_name', 'last_name', 'date_of_birth', 'city', 'military_grade',
             'password', 'created_at', 'updated_at')
 
@@ -121,13 +121,14 @@ class AccountDetailSerializer(serializers.ModelSerializer):
     info = PeopleSerializer(read_only=True)
     city = CitySerializer(read_only=True)
     military_grade = MilitaryGradeSerializer(read_only=True)
+    user_type = UserTypeSerializer(read_only=True)
 
     class Meta:
         model = Account
 
         fields = (
-            'id', 'username', 'email', 'image', 'phone_number',
-            'gender', 'ci', 'first_name', 'last_name', 'date_of_birth', 'city', 'military_grade', 'password')
+            'id', 'username', 'email', 'image', 'phone_number', 'user_type', 'gender', 'ci', 'first_name', 'last_name',
+            'date_of_birth', 'city', 'military_grade', 'password')
 
 
 class AccountDetailViewSet(viewsets.ModelViewSet):
@@ -142,7 +143,7 @@ class AccountViewSet(viewsets.ModelViewSet):
     pagination_class = BasePagination
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
     filter_fields = (
-        'first_name', 'last_name', 'is_admin', 'is_staff', 'is_superuser', 'is_instructor', 'id', 'is_active',)
+        'first_name', 'last_name', 'is_admin', 'is_staff', 'is_superuser', 'user_type', 'id', 'is_active',)
     search_fields = ('$first_name', '$last_name')
 
 
@@ -175,8 +176,9 @@ class LoginView(views.APIView):
 
                 military_data = MilitaryGradeSerializer(
                     MilitaryGrade.objects.filter(id=serialized.data['military_grade']), many=True)
-                city_data = CitySerializer(
-                    City.objects.filter(id=serialized.data['city']), many=True)
+                city_data = CitySerializer(City.objects.filter(id=serialized.data['city']), many=True)
+                user_type_data = UserTypeSerializer(UserType.objects.filter(id=serialized.data['user_type']), many=True)
+
                 user_info = serialized.data
                 if len(military_data.data) > 0:
                     user_info['military_grade'] = military_data.data[0]
@@ -187,6 +189,12 @@ class LoginView(views.APIView):
                     user_info['city'] = city_data.data[0]
                 else:
                     user_info['city'] = city_data.data
+
+                if len(user_type_data.data) > 0:
+                    user_info['user_type'] = user_type_data.data[0]
+                else:
+                    user_info['user_type'] = user_type_data.data
+
                 return Response({
                     'token': token[0].key,
                     'user': user_info

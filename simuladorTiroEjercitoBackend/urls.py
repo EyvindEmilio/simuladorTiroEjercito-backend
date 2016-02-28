@@ -31,6 +31,7 @@ from simulador.resources.program_lesson import ProgramLessonViewSet
 from simulador.resources.regiment import RegimentViewSet
 from simulador.resources.squadron import SquadronViewSet
 from simulador.resources.target_resource import TargetViewSet
+from simulador.resources.user_type import UserTypeViewSet
 
 router = routers.DefaultRouter()
 
@@ -39,13 +40,14 @@ router.register(r'Battalion', BattalionViewSet)
 router.register(r'City', CityViewSet)
 router.register(r'Company', CompanyViewSet)
 router.register(r'Grade', GradeViewSet)
+router.register(r'Lesson', LessonViewSet)
 router.register(r'MilitaryGrade', MilitaryGradeViewSet)
 router.register(r'People', PeopleViewSet)
+router.register(r'ProgramLesson', ProgramLessonViewSet)
 router.register(r'Regiment', RegimentViewSet)
 router.register(r'Squadron', SquadronViewSet)
-router.register(r'Lesson', LessonViewSet)
-router.register(r'ProgramLesson', ProgramLessonViewSet)
 router.register(r'Target', TargetViewSet)
+router.register(r'UserType', UserTypeViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),

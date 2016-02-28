@@ -41,12 +41,30 @@ HOURS = (
 )
 
 
+#
+# class ProgramLesson(models.Model):
+#     name = models.CharField(max_length=40, unique=True, blank=False)
+#     instructor = models.ForeignKey(Account, null=False, related_name='instructor')
+#     lesson = models.ForeignKey(Lesson, null=False)
+#     date = models.DateField(null=False)
+#     hours_assigned = models.IntegerField(null=False, choices=HOURS)
+#     list = models.ManyToManyField(Account, blank=False)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+#
+#     def __unicode__(self):
+#         return self.name
+#
+#     class Meta:
+#         ordering = ['name']
+#
+
 class ProgramLesson(models.Model):
     name = models.CharField(max_length=40, unique=True, blank=False)
     instructor = models.ForeignKey(Account, null=False, related_name='instructor')
     lesson = models.ForeignKey(Lesson, null=False)
-    date = models.DateField(null=False)
-    hours_assigned = models.IntegerField(null=False, choices=HOURS)
+    start_date = models.DateTimeField(null=False)
+    end_date = models.DateTimeField(null=False)
     list = models.ManyToManyField(Account, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -61,7 +79,7 @@ class ProgramLesson(models.Model):
 class ProgramLessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProgramLesson
-        fields = ('id', 'name', 'instructor', 'lesson', 'date', 'hours_assigned', 'list', 'created_at', 'updated_at')
+        fields = ('id', 'name', 'instructor', 'lesson', 'start_date', 'end_date', 'list', 'created_at', 'updated_at')
 
 
 class ProgramLessonViewSet(viewsets.ModelViewSet):
