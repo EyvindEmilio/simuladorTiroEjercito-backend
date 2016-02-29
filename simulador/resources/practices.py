@@ -11,11 +11,13 @@ class Practices(models.Model):
     data_info = models.TextField(max_length=900, help_text='''{
 	"resultados": [
 		{
+		    "lesson_id":1
 			"posicion_id":2,
 			"puntuacion": "5",
 			"tiempo": 13.12
 		},
 		{
+		    "lesson_id":2
 			"posicion_id":1,
 			"puntuacion": "3",
 			"tiempo": 11.2
