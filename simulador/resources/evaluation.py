@@ -8,7 +8,22 @@ from simulador.resources.target_resource import Target
 
 class Evaluation(models.Model):
     account = models.ForeignKey(Account)
-    data_info = models.TextField(max_length=900)
+    data_info = models.TextField(max_length=900, help_text='''{
+	"leccion_id": 2,
+	"evaluacion": true,
+	"resultados": [
+		{
+			"posicion_id":2,
+			"puntuacion": "5v",
+			"tiempo": 13.12
+		},
+		{
+			"posicion_id":1,
+			"puntuacion": "3",
+			"tiempo": 11.2
+		}
+	]
+}''')
     date_practice = models.DateTimeField()
     program_lesson = models.ForeignKey(ProgramLesson)
     created_at = models.DateTimeField(auto_now_add=True)
