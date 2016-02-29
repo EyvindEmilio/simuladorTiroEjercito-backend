@@ -49,7 +49,7 @@ router.register(r'Regiment', RegimentViewSet)
 router.register(r'Squadron', SquadronViewSet)
 router.register(r'Target', TargetViewSet)
 router.register(r'UserType', UserTypeViewSet)
-router.register(r'Practicas', PracticesViewSet)
+router.register(r'Practices', PracticesViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
