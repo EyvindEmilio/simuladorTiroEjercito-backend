@@ -6,15 +6,13 @@ from simulador.resources.program_lesson import ProgramLesson
 from simulador.resources.target_resource import Target
 
 
-class Evaluation(models.Model):
+class Practices(models.Model):
     account = models.ForeignKey(Account)
     data_info = models.TextField(max_length=900, help_text='''{
-	"leccion_id": 2,
-	"evaluacion": true,
 	"resultados": [
 		{
 			"posicion_id":2,
-			"puntuacion": "5v",
+			"puntuacion": "5",
 			"tiempo": 13.12
 		},
 		{
@@ -25,6 +23,7 @@ class Evaluation(models.Model):
 	]
 }''')
     date_practice = models.DateTimeField()
+    evaluation = models.BooleanField(default=False)
     program_lesson = models.ForeignKey(ProgramLesson)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -36,15 +35,15 @@ class Evaluation(models.Model):
         ordering = ['created_at']
 
 
-class EvaluationSerializer(serializers.ModelSerializer):
+class PracticesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Evaluation
-        fields = ('id', 'account', 'data_info', 'date_practice', 'program_lesson', 'created_at', 'updated_at')
+        model = Practices
+        fields = ('id', 'account', 'data_info', 'date_practice', 'evaluation', 'program_lesson', 'created_at', 'updated_at')
 
 
-class EvaluationViewSet(viewsets.ModelViewSet):
-    queryset = Evaluation.objects.all()
-    serializer_class = EvaluationSerializer
+class PracticesViewSet(viewsets.ModelViewSet):
+    queryset = Practices.objects.all()
+    serializer_class = PracticesSerializer
     pagination_class = BasePagination
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
     filter_fields = ('id',)

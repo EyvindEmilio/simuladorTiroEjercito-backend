@@ -23,7 +23,7 @@ from simulador.resources.account import LogoutView
 from simulador.resources.battalion import BattalionViewSet
 from simulador.resources.city import CityViewSet
 from simulador.resources.company import CompanyViewSet
-from simulador.resources.evaluation import EvaluationViewSet
+from simulador.resources.practices import PracticesViewSet
 from simulador.resources.grade import GradeViewSet
 from simulador.resources.lesson import LessonViewSet
 from simulador.resources.military_grade import MilitaryGradeViewSet
@@ -49,7 +49,7 @@ router.register(r'Regiment', RegimentViewSet)
 router.register(r'Squadron', SquadronViewSet)
 router.register(r'Target', TargetViewSet)
 router.register(r'UserType', UserTypeViewSet)
-router.register(r'Evaluation', EvaluationViewSet)
+router.register(r'Practicas', PracticesViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),

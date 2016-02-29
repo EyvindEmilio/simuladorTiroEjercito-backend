@@ -15,4 +15,4 @@ import resources.target_resource
 import resources.lesson
 import resources.program_lesson
 import resources.user_type
-import resources.evaluation
+import resources.practices
