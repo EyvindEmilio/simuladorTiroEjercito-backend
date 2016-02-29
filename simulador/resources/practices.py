@@ -9,21 +9,21 @@ from simulador.resources.target_resource import Target
 class Practices(models.Model):
     account = models.ForeignKey(Account)
     data_info = models.TextField(max_length=900, help_text='''{
-	"resultados": [
-		{
-		    "lesson_id":1
-			"posicion_id":2,
-			"puntuacion": "5",
-			"tiempo": 13.12
-		},
-		{
-		    "lesson_id":2
-			"posicion_id":1,
-			"puntuacion": "3",
-			"tiempo": 11.2
-		}
-	]
-}''')
+                                        "resultados": [
+                                            {
+                                                "lesson_id":1
+                                                "posicion_id":2,
+                                                "puntuacion": "5",
+                                                "tiempo": 13.12
+                                            },
+                                            {
+                                                "lesson_id":2
+                                                "posicion_id":1,
+                                                "puntuacion": "3",
+                                                "tiempo": 11.2
+                                            }
+                                        ]
+                                    }''')
     date_practice = models.DateTimeField()
     evaluation = models.BooleanField(default=False)
     program_lesson = models.ForeignKey(ProgramLesson)
@@ -40,7 +40,8 @@ class Practices(models.Model):
 class PracticesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Practices
-        fields = ('id', 'account', 'data_info', 'date_practice', 'evaluation', 'program_lesson', 'created_at', 'updated_at')
+        fields = (
+        'id', 'account', 'data_info', 'date_practice', 'evaluation', 'program_lesson', 'created_at', 'updated_at')
 
 
 class PracticesViewSet(viewsets.ModelViewSet):
