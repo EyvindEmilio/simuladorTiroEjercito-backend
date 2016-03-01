@@ -13,6 +13,6 @@ import resources.squadron
 import resources.military_grade
 import resources.target_resource
 import resources.lesson
-import resources.program_lesson
+import resources.program_practice
 import resources.user_type
 import resources.practices

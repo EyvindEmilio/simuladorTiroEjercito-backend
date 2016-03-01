@@ -2,8 +2,7 @@ from django.db import models
 from rest_framework import viewsets, filters, serializers
 from simulador.pagination import BasePagination
 from simulador.resources.account import Account
-from simulador.resources.program_lesson import ProgramLesson
-from simulador.resources.target_resource import Target
+from simulador.resources.program_practice import ProgramPractice
 
 
 class Practices(models.Model):
@@ -25,8 +24,8 @@ class Practices(models.Model):
                                         ]
                                     }''')
     date_practice = models.DateTimeField()
-    evaluation = models.BooleanField(default=False)
-    program_lesson = models.ForeignKey(ProgramLesson)
+    is_evaluation = models.BooleanField(default=False)
+    program_practice = models.ForeignKey(ProgramPractice)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -41,7 +40,7 @@ class PracticesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Practices
         fields = (
-        'id', 'account', 'data_info', 'date_practice', 'evaluation', 'program_lesson', 'created_at', 'updated_at')
+        'id', 'account', 'data_info', 'date_practice', 'is_evaluation', 'program_practice', 'created_at', 'updated_at')
 
 
 class PracticesViewSet(viewsets.ModelViewSet):

@@ -28,7 +28,7 @@ from simulador.resources.grade import GradeViewSet
 from simulador.resources.lesson import LessonViewSet
 from simulador.resources.military_grade import MilitaryGradeViewSet
 from simulador.resources.people import PeopleViewSet
-from simulador.resources.program_lesson import ProgramLessonViewSet
+from simulador.resources.program_practice import ProgramPracticeViewSet
 from simulador.resources.regiment import RegimentViewSet
 from simulador.resources.squadron import SquadronViewSet
 from simulador.resources.target_resource import TargetViewSet
@@ -44,7 +44,7 @@ router.register(r'Grade', GradeViewSet)
 router.register(r'Lesson', LessonViewSet)
 router.register(r'MilitaryGrade', MilitaryGradeViewSet)
 router.register(r'People', PeopleViewSet)
-router.register(r'ProgramLesson', ProgramLessonViewSet)
+router.register(r'ProgramPractice', ProgramPracticeViewSet)
 router.register(r'Regiment', RegimentViewSet)
 router.register(r'Squadron', SquadronViewSet)
 router.register(r'Target', TargetViewSet)

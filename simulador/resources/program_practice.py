@@ -59,34 +59,38 @@ HOURS = (
 #         ordering = ['name']
 #
 
-class ProgramLesson(models.Model):
-    name = models.CharField(max_length=40, unique=True, blank=False)
+class ProgramPractice(models.Model):
+    title = models.CharField(max_length=40, unique=True, blank=False)
     instructor = models.ForeignKey(Account, null=False, related_name='instructor')
-    lesson = models.ForeignKey(Lesson, null=False)
-    start_date = models.DateTimeField(null=False)
-    end_date = models.DateTimeField(null=False)
+    lesson = models.ManyToManyField(Lesson, null=False)
+    start = models.DateTimeField(null=False)
+    end = models.DateTimeField(null=False)
+    is_evaluation = models.BooleanField(default=False)
+    is_test_mode = models.BooleanField(default=False)
     list = models.ManyToManyField(Account, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.name
+        return self.title
 
     class Meta:
-        ordering = ['name']
+        ordering = ['created_at']
 
 
-class ProgramLessonSerializer(serializers.ModelSerializer):
+class ProgramPracticeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProgramLesson
-        fields = ('id', 'name', 'instructor', 'lesson', 'start_date', 'end_date', 'list', 'created_at', 'updated_at')
+        model = ProgramPractice
+        fields = (
+            'id', 'title', 'instructor', 'lesson', 'start', 'end', 'is_evaluation', 'is_test_mode', 'list',
+            'created_at', 'updated_at')
 
 
-class ProgramLessonViewSet(viewsets.ModelViewSet):
-    queryset = ProgramLesson.objects.all()
-    serializer_class = ProgramLessonSerializer
+class ProgramPracticeViewSet(viewsets.ModelViewSet):
+    queryset = ProgramPractice.objects.all()
+    serializer_class = ProgramPracticeSerializer
     pagination_class = BasePagination
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
-    filter_fields = ('name',)
-    search_fields = ('$name',)
+    filter_fields = ('title', 'is_evaluation', 'is_test_mode')
+    search_fields = ('title',)
     # permission_classes = (IsAuthenticated,)

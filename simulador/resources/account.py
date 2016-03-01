@@ -144,7 +144,7 @@ class AccountViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
     filter_fields = (
         'first_name', 'last_name', 'is_admin', 'is_staff', 'is_superuser', 'user_type', 'id', 'is_active',)
-    search_fields = ('$first_name', '$last_name')
+    search_fields = ('$first_name', '$last_name', '$ci')
 
 
 class LoginSerializer(serializers.Serializer):
