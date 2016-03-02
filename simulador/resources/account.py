@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate
+import datetime
 from rest_framework.authtoken.models import Token
 from django.db import models
 from django.contrib.auth.models import (
@@ -12,6 +13,7 @@ from simulador.resources.city import CitySerializer, City
 from simulador.resources.military_grade import MilitaryGrade, MilitaryGradeSerializer
 from simulador.resources.people import PeopleSerializer
 from simulador import strings
+# from simulador.resources.program_practice import ProgramPracticeDetailSerializer, ProgramPractice
 from simulador.resources.user_type import UserType, UserTypeSerializer
 
 GENDERS_CHOICES = (
@@ -162,6 +164,7 @@ class LoginView(views.APIView):
         data = request.data
         username = data.get('username', None)
         password = data.get('password', None)
+        is_simulator = data.get('is_simulator', None)
 
         if not request.user.is_anonymous():
             account = request.user
@@ -194,10 +197,22 @@ class LoginView(views.APIView):
                 else:
                     user_info['user_type'] = user_type_data.data
 
-                return Response({
-                    'token': token[0].key,
-                    'user': user_info
-                })
+                if is_simulator is not None:
+                    return Response({
+                        'token': token[0].key,
+                        'user': user_info
+                    })
+                else:
+                    today = datetime.datetime.today()
+                    from simulador.resources.program_practice import ProgramPractice
+                    objects_practice = ProgramPractice.objects.filter(end__gte=today, start__lte=today)
+                    from simulador.resources.program_practice import ProgramPracticeDetailSerializer
+                    practice_data = ProgramPracticeDetailSerializer(objects_practice, many=True)
+                    return Response({
+                        'token': token[0].key,
+                        'user': user_info,
+                        'practice': practice_data.data
+                    })
 
             return Response(
                 {
