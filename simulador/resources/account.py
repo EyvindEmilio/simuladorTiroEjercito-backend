@@ -118,7 +118,6 @@ class AccountSerializer(serializers.ModelSerializer):
 
 
 class AccountDetailSerializer(serializers.ModelSerializer):
-    info = PeopleSerializer(read_only=True)
     city = CitySerializer(read_only=True)
     military_grade = MilitaryGradeSerializer(read_only=True)
     user_type = UserTypeSerializer(read_only=True)
@@ -127,8 +126,8 @@ class AccountDetailSerializer(serializers.ModelSerializer):
         model = Account
 
         fields = (
-            'id', 'username', 'email', 'image', 'phone_number', 'user_type', 'gender', 'ci', 'first_name', 'last_name',
-            'date_of_birth', 'city', 'military_grade', 'password')
+            'id', 'is_active', 'username', 'email', 'image', 'phone_number', 'user_type', 'gender', 'ci', 'first_name',
+            'last_name', 'date_of_birth', 'city', 'military_grade', 'created_at', 'updated_at')
 
 
 class AccountDetailViewSet(viewsets.ModelViewSet):

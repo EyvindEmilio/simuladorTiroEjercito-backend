@@ -133,8 +133,8 @@
     "model": "simulador.MilitaryGrade",
     "pk": 5,
     "fields": {
-      "name": "Cadete 1",
-      "short": "Cad. 1",
+      "name": "Sargento Tercero",
+      "short": "Sto. III",
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -143,8 +143,38 @@
     "model": "simulador.MilitaryGrade",
     "pk": 6,
     "fields": {
-      "name": "Cadete 2",
-      "short": "Cad. 2",
+      "name": "Capitan",
+      "short": "Cap",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.MilitaryGrade",
+    "pk": 7,
+    "fields": {
+      "name": "Subteniente",
+      "short": "Sub. Tnte",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.MilitaryGrade",
+    "pk": 8,
+    "fields": {
+      "name": "Mayor",
+      "short": "Myr",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.MilitaryGrade",
+    "pk": 9,
+    "fields": {
+      "name": "Cadete",
+      "short": "Cad",
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -640,7 +670,7 @@
     "fields": {
       "name": "Administrador",
       "short": "Admin",
-      "description": "Usuario administrador, administra contenido acerca de comanias",
+      "description": "Usuario administrador, administra configuraciones del simulador y de aplicacion de consulta",
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -651,7 +681,7 @@
     "fields": {
       "name": "Instructor",
       "short": "Instructor",
-      "description": "Usuario instructor, Asigna fechas en las que se realizaran las practicas de tiro en l  simulador",
+      "description": "Usuario instructor, Asigna fechas en las que se realizaran las practicas de tiro en el simulador",
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -662,7 +692,256 @@
     "fields": {
       "name": "Practicante",
       "short": "Practicante",
-      "description": "Usuario cadete o practicante, solo realiza consulta de su progreso en el simulador",
+      "description": "Usuario cadete o practicante, realiza consulta de su progreso en el simulador",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.Target",
+    "pk": 1,
+    "fields": {
+      "name": "Reducido 'a'",
+      "description": "Blanco reducido de 10 zonas",
+      "image": "./blanco_10_zonas.jpg",
+      "zones": 10,
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.Target",
+    "pk": 2,
+    "fields": {
+      "name": "Reducido 'b'",
+      "description": "Blanco reducido de 5 zonas",
+      "image": "./blanco_5_zonas.jpg",
+      "zones": 5,
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.Target",
+    "pk": 3,
+    "fields": {
+      "name": "Silueta Tipo E",
+      "description": "Blanco tipo siluete de 5 zonas",
+      "image": "./silueta_tipo_e.jpg",
+      "zones": 5,
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.Position",
+    "pk": 1,
+    "fields": {
+      "name": "Pie",
+      "description": "Posicion de pie o brazo libre",
+      "image": "./posicion_pie.jpg",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.Position",
+    "pk": 2,
+    "fields": {
+      "name": "Agazapado",
+      "description": "Se adopta esta posicion para blancos que aparecen de sorpresa y a distancias cortas",
+      "image": "./posicion_agazapado.jpg",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.Position",
+    "pk": 3,
+    "fields": {
+      "name": "Arrodillado",
+      "description": "Usada para aumentar la precision de fuego rapido a distancias mayores",
+      "image": "./posicion_arrodillado.jpg",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.Position",
+    "pk": 4,
+    "fields": {
+      "name": "Tendido",
+      "description": "Usada para obtener mayor estabilidad",
+      "image": "./posicion_tendido.jpg",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.TypeOfFire",
+    "pk": 1,
+    "fields": {
+      "name": "Fuego Lento",
+      "position": 1,
+      "distance": 15,
+      "selector": "",
+      "target": 1,
+      "chargers": 1,
+      "cartridges": 5,
+      "modality": "",
+      "max_time": 300,
+      "min_score": 30,
+      "max_score": 50,
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.TypeOfFire",
+    "pk": 2,
+    "fields": {
+      "name": "Fuego Rapido",
+      "position": 4,
+      "distance": 25,
+      "selector": "",
+      "target": 3,
+      "chargers": 1,
+      "cartridges": 5,
+      "modality": "",
+      "max_time": 12,
+      "min_score": 3,
+      "max_score": 25,
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.TypeOfFire",
+    "pk": 3,
+    "fields": {
+      "name": "Fuego lento",
+      "position": 3,
+      "distance": 15,
+      "selector": "",
+      "target": 1,
+      "chargers": 1,
+      "cartridges": 5,
+      "modality": "",
+      "max_time": 300,
+      "min_score": 30,
+      "max_score": 50,
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.TypeOfFire",
+    "pk": 4,
+    "fields": {
+      "name": "Fuego Rapido",
+      "position": 3,
+      "distance": 25,
+      "selector": "",
+      "target": 3,
+      "chargers": 1,
+      "cartridges": 5,
+      "modality": "",
+      "max_time": 12,
+      "min_score": 3,
+      "max_score": 25,
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.TypeOfFire",
+    "pk": 5,
+    "fields": {
+      "name": "Fuego rapido",
+      "position": 1,
+      "distance": 10,
+      "selector": "",
+      "target": 3,
+      "chargers": 1,
+      "cartridges": 2,
+      "modality": "",
+      "max_time": 5,
+      "min_score": 1,
+      "max_score": 2,
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.TypeOfFire",
+    "pk": 6,
+    "fields": {
+      "name": "Fuego rapido",
+      "position": 1,
+      "distance": 15,
+      "selector": "",
+      "target": 3,
+      "chargers": 1,
+      "cartridges": 2,
+      "modality": "",
+      "max_time": 5,
+      "min_score": 1,
+      "max_score": 2,
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.TypeOfFire",
+    "pk": 7,
+    "fields": {
+      "name": "Fuego rapido",
+      "position": 1,
+      "distance": 25,
+      "selector": "",
+      "target": 3,
+      "chargers": 1,
+      "cartridges": 2,
+      "modality": "",
+      "max_time": 5,
+      "min_score": 1,
+      "max_score": 2,
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.Lesson",
+    "pk": 1,
+    "fields": {
+      "name": "Primera leccion de tiro",
+      "description": "",
+      "image": "./primera_leccion_de_tiro.jpg",
+      "type_of_fire": [1, 2],
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.Lesson",
+    "pk": 2,
+    "fields": {
+      "name": "Segunda leccion de tiro",
+      "description": "",
+      "image": "./primera_leccion_de_tiro.jpg",
+      "type_of_fire": [3, 4],
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.Lesson",
+    "pk": 3,
+    "fields": {
+      "name": "Tercera leccion de tiro",
+      "description": "",
+      "image": "./primera_leccion_de_tiro.jpg",
+      "type_of_fire": [5, 6, 7],
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }

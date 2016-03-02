@@ -1,9 +1,10 @@
 from django.db import models
 from rest_framework import viewsets, filters, serializers
 from simulador.pagination import BasePagination
-from simulador.resources.account import Account
-from simulador.resources.lesson import Lesson
+from simulador.resources.account import Account, AccountSerializer, AccountDetailSerializer
+from simulador.resources.lesson import Lesson, LessonSerializer, LessonDetailSerializer
 from simulador.resources.target_resource import Target
+from rest_framework.response import Response
 
 HOURS = (
     (1, "00:00 - 00:30"),
@@ -86,6 +87,18 @@ class ProgramPracticeSerializer(serializers.ModelSerializer):
             'created_at', 'updated_at')
 
 
+class ProgramPracticeDetailSerializer(serializers.ModelSerializer):
+    instructor = AccountDetailSerializer(read_only=True)
+    lesson = LessonDetailSerializer(read_only=True, many=True)
+    list = AccountDetailSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = ProgramPractice
+        fields = (
+            'id', 'title', 'instructor', 'lesson', 'start', 'end', 'is_evaluation', 'is_test_mode', 'list',
+            'created_at', 'updated_at')
+
+
 class ProgramPracticeViewSet(viewsets.ModelViewSet):
     queryset = ProgramPractice.objects.all()
     serializer_class = ProgramPracticeSerializer
@@ -93,4 +106,10 @@ class ProgramPracticeViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
     filter_fields = ('title', 'is_evaluation', 'is_test_mode')
     search_fields = ('title',)
-    # permission_classes = (IsAuthenticated,)
+
+    def get_serializer_class(self):
+        query_params = self.request.query_params
+        if 'is_complete_serializer' in query_params and query_params['is_complete_serializer'] == '1':
+            return ProgramPracticeDetailSerializer
+        else:
+            return ProgramPracticeSerializer

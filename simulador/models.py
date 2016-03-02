@@ -16,3 +16,5 @@ import resources.lesson
 import resources.program_practice
 import resources.user_type
 import resources.practices
+import resources.position
+import resources.type_of_fire
