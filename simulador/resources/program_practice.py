@@ -5,6 +5,7 @@ from simulador.pagination import BasePagination
 from simulador.resources.account import Account, AccountDetailSerializer
 from simulador.resources.lesson import LessonDetailSerializer, Lesson
 
+
 class ProgramPractice(models.Model):
     title = models.CharField(max_length=40, unique=True, blank=False)
     instructor = models.ForeignKey(Account, null=False, related_name='instructor')
