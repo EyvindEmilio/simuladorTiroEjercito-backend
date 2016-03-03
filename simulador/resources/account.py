@@ -200,7 +200,7 @@ class LoginView(views.APIView):
                 if is_simulator is not None:
                     return Response({
                         'token': token[0].key,
-                        'user': user_info
+                        'user': user_info,
                     })
                 else:
                     today = datetime.datetime.today()
