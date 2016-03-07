@@ -21,7 +21,7 @@ class Position(models.Model):
 class PositionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Position
-        fields = ('id', 'name', 'description', 'image', 'created_at', 'updated_at')
+        fields = ('id', 'name', 'description', 'image', 'updated_at')
 
 
 class PositionViewSet(viewsets.ModelViewSet):

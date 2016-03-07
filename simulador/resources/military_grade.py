@@ -19,7 +19,7 @@ class MilitaryGrade(models.Model):
 class MilitaryGradeSerializer(serializers.ModelSerializer):
     class Meta:
         model = MilitaryGrade
-        fields = ('id', 'name', 'short', 'created_at', 'updated_at')
+        fields = ('id', 'name', 'short', 'updated_at')
 
 
 class MilitaryGradeViewSet(viewsets.ModelViewSet):

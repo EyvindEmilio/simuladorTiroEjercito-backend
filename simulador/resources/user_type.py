@@ -20,7 +20,7 @@ class UserType(models.Model):
 class UserTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserType
-        fields = ('id', 'name', 'short', 'description', 'created_at', 'updated_at')
+        fields = ('id', 'name', 'short', 'description')
 
 
 class UserTypeViewSet(viewsets.ModelViewSet):

@@ -17,9 +17,19 @@ class ProgramPractice(models.Model):
     list = models.ManyToManyField(Account, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    finish = models.BooleanField(default=False)
+    completed = models.BooleanField(default=False)
 
-    def __unicode__(self):
-        return self.title
+    # def __unicode__(self):
+    #     return self.title
+    #
+    # @property
+    # def _get_finish(self):
+    #     return 3
+    #
+    # # @property
+    # # def _completed(self):
+    # #     return 2dv
 
     class Meta:
         ordering = ['created_at']
@@ -29,8 +39,8 @@ class ProgramPracticeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProgramPractice
         fields = (
-            'id', 'title', 'instructor', 'lesson', 'start', 'end', 'is_evaluation', 'is_test_mode', 'list',
-            'created_at', 'updated_at')
+            'id', 'title', 'instructor', 'lesson', 'start', 'end', 'is_evaluation', 'is_test_mode', 'finish',
+            'completed', 'list', 'created_at', 'updated_at')
 
 
 class ProgramPracticeDetailSerializer(serializers.ModelSerializer):
@@ -41,8 +51,8 @@ class ProgramPracticeDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProgramPractice
         fields = (
-            'id', 'title', 'instructor', 'lesson', 'start', 'end', 'is_evaluation', 'is_test_mode', 'list',
-            'created_at', 'updated_at')
+            'id', 'title', 'instructor', 'lesson', 'start', 'end', 'is_evaluation', 'completed', 'list',
+            'is_test_mode', 'finish', 'list', 'completed', 'created_at', 'updated_at')
 
 
 class ProgramPracticeViewSet(viewsets.ModelViewSet):

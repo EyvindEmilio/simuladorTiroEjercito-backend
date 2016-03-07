@@ -22,7 +22,7 @@ class City(models.Model):
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
-        fields = ('id', 'name', 'short', 'created_at', 'updated_at')
+        fields = ('id', 'name', 'short')
 
 
 class CityViewSet(viewsets.ModelViewSet):

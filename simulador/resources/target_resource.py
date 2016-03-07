@@ -21,7 +21,7 @@ class Target(models.Model):
 class TargetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Target
-        fields = ('id', 'name', 'description', 'image', 'zones', 'created_at', 'updated_at')
+        fields = ('id', 'name', 'description', 'image', 'zones', 'updated_at')
 
 
 class TargetViewSet(viewsets.ModelViewSet):

@@ -32,7 +32,7 @@ class TypeOfFireSerializer(serializers.ModelSerializer):
         model = TypeOfFire
         fields = (
             'id', 'name', 'position', 'distance', 'selector', 'target', 'chargers', 'cartridges', 'modality',
-            'max_time', 'min_score', 'max_score', 'created_at', 'updated_at')
+            'max_time', 'min_score', 'max_score', 'updated_at')
 
 
 class TypeOfFireDetailSerializer(serializers.ModelSerializer):
@@ -43,7 +43,7 @@ class TypeOfFireDetailSerializer(serializers.ModelSerializer):
         model = TypeOfFire
         fields = (
             'id', 'name', 'position', 'distance', 'selector', 'target', 'chargers', 'cartridges', 'modality',
-            'max_time', 'min_score', 'max_score', 'created_at', 'updated_at')
+            'max_time', 'min_score', 'max_score', 'updated_at')
 
 
 class TypeOfFireViewSet(viewsets.ModelViewSet):
