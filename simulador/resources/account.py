@@ -1,5 +1,10 @@
 from django.contrib.auth import authenticate
 import datetime
+
+from django.contrib.auth.hashers import SHA1PasswordHasher, PBKDF2PasswordHasher, make_password
+from django.contrib.sites.models import Site
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
 from rest_framework.authtoken.models import Token
 from django.db import models
 from django.contrib.auth.models import (
@@ -8,6 +13,7 @@ from django.contrib.auth.models import (
 from rest_framework import viewsets, views, serializers, status, filters
 from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.response import Response
+from rest_framework.reverse import reverse, reverse_lazy
 from simulador.pagination import BasePagination
 from simulador.resources.city import CitySerializer, City
 from simulador.resources.military_grade import MilitaryGrade, MilitaryGradeSerializer
@@ -15,6 +21,7 @@ from simulador.resources.people import PeopleSerializer
 from simulador import strings
 # from simulador.resources.program_practice import ProgramPracticeDetailSerializer, ProgramPractice
 from simulador.resources.user_type import UserType, UserTypeSerializer
+from simuladorTiroEjercitoBackend import settings
 
 GENDERS_CHOICES = (
     ('M', 'Masculino'),
@@ -77,6 +84,12 @@ class Account(AbstractBaseUser):
     USERNAME_FIELD = 'ci'
     REQUIRED_FIELDS = ['username']
 
+    # def get_absolute_url(self):
+    #     domain = Site.objects.get_current().domain
+    #
+    #     return 'http://%s' % (domain,)
+    # def set_password(self, raw_password):
+
     def has_perm(self, perm, obj=None):
         return self.is_superuser
 
@@ -98,6 +111,10 @@ class Account(AbstractBaseUser):
 
 class AccountSerializer(serializers.ModelSerializer):
     # info = PeopleSerializer(read_only=True)
+    # image = serializers.SerializerMethodField()
+    #
+    # def get_image(self, obj):
+    #     return self.context['request'].build_absolute_uri(self.image)
 
     class Meta:
         model = Account
@@ -109,7 +126,6 @@ class AccountSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         request = self.context.get('request', None)
-
         password = validated_data.pop('password', None)
         instance = self.Meta.model(**validated_data)
         instance.set_password(password)
@@ -146,6 +162,26 @@ class AccountViewSet(viewsets.ModelViewSet):
     filter_fields = (
         'first_name', 'last_name', 'is_admin', 'is_staff', 'is_superuser', 'user_type', 'id', 'is_active',)
     search_fields = ('$first_name', '$last_name', '$ci')
+
+    def get_serializer_class(self):
+        query_params = self.request.query_params
+        if 'is_complete_serializer' in query_params and query_params['is_complete_serializer'] == '1':
+            return AccountDetailSerializer
+        else:
+            return AccountSerializer
+
+    def partial_update(self, request, *args, **kwargs):
+        user = self.request.user
+        serializer = AccountSerializer(data=request.data, instance=user, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            if 'password' in request.data:
+                user.set_password(request.data['password'])
+            user.save()
+            return Response(AccountSerializer(user).data)
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginSerializer(serializers.Serializer):
@@ -196,6 +232,8 @@ class LoginView(views.APIView):
                     user_info['user_type'] = user_type_data.data[0]
                 else:
                     user_info['user_type'] = user_type_data.data
+
+                user_info['image'] = settings.GET_API_URL(request, user_info['image'])
 
                 if is_simulator is not None:
                     return Response({

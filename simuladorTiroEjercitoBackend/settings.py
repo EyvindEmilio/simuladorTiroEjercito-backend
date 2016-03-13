@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from distutils import dirname
+from os.path import abspath, basename, normpath, join
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -107,6 +109,14 @@ STATIC_ROOT = 'staticfiles'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+def GET_API_URL(request, dir):
+    if request.is_secure():
+        return "https://%s%s" % (request.META['HTTP_HOST'], dir,)
+    else:
+        return "http://%s%s" % (request.META['HTTP_HOST'], dir,)
+
+
 STATICFILES_DIRS = (
     os.path.join(os.path.dirname(BASE_DIR), 'static'),
 )
@@ -128,4 +138,12 @@ REST_FRAMEWORK = {
     #     'rest_framework.permissions.IsAuthenticated',
     # ),
 }
+
+## Email SMTP settings
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'simulador.de.tiro@gmail.com'
+EMAIL_HOST_PASSWORD = 's1mulad0r'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 CORS_ORIGIN_ALLOW_ALL = True
