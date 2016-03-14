@@ -81,7 +81,7 @@ class ResetPasswordViewSet(viewsets.ModelViewSet):
 
 def send_mail_reset(email_to, user):
     token_reset = uuid.uuid1().hex
-    message = "Usuario %s %s (%s), ingrese a esta direccion para recuperar su password: Http://127.0.0.1:9000/#/reset/password/%s" % (
+    message = "Usuario %s %s (%s), ingrese a esta direccion para recuperar su password: https://simuladotirofrontend.herokuapp.com/dist/#/reset/password/%s" % (
         user["first_name"], user["last_name"], user["ci"], token_reset,)
     try:
         mail = send_mail('Recuperar password', message, settings.EMAIL_HOST_USER, [email_to], fail_silently=False)
