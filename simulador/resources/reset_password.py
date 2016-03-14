@@ -32,6 +32,7 @@ class ResetPasswordSerializer(serializers.ModelSerializer):
         model = ResetPassword
         fields = ('id', 'id_user', 'date_expired', 'token_reset', 'created_at', 'updated_at')
         # read_only_fields = ('id_user', 'date_expired', 'token_reset',)
+        # extra_kwargs = {'password': {'write_only': True}}
 
 
 class ResetPasswordViewSet(viewsets.ModelViewSet):

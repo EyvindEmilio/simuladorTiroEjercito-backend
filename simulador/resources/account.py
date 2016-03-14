@@ -171,7 +171,7 @@ class AccountViewSet(viewsets.ModelViewSet):
             return AccountSerializer
 
     def partial_update(self, request, *args, **kwargs):
-        user = self.request.user
+        user = Account.objects.filter(id=self.kwargs['pk'])[0]
         serializer = AccountSerializer(data=request.data, instance=user, partial=True)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
