@@ -41,7 +41,8 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     'rest_framework_swagger',
     'corsheaders',
-    'easy_pdf'
+    'easy_pdf',
+    'pycha'
 )
 
 MIDDLEWARE_CLASSES = (
