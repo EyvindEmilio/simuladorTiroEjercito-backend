@@ -61,7 +61,7 @@ ROOT_URLCONF = 'simuladorTiroEjercitoBackend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -104,12 +104,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = 'simulador/staticfiles'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-def GET_API_URL(request, dir):
+def GET_API_URL(request, dir=""):
     if request.is_secure():
         return "https://%s%s" % (request.META['HTTP_HOST'], dir,)
     else:
@@ -119,6 +119,7 @@ def GET_API_URL(request, dir):
 STATICFILES_DIRS = (
     os.path.join(os.path.dirname(BASE_DIR), 'static'),
 )
+
 
 AUTH_USER_MODEL = 'simulador.Account'
 

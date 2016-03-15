@@ -1,0 +1,96 @@
+{% extends "easy_pdf/base.html" %}
+{% load  pdf_filters %}
+{% load  staticfiles %}
+{% block content %}
+    <div id="content">
+
+        <table class="full-width">
+            <tr>
+                <td class="left"><img src="{{ logo_ejercito_url | get64 }}" width="80" height="80"></td>
+                <td class="center">
+                    <h1 class="pT30">SIMULADOR DE PRÁCTICA DE TIRO</h1>
+                    <h2><i>"Colegio Militar del Ejército"</i></h2>
+                </td>
+                <td class="right"><img src="{{ logo_bolivia_url | get64 }}" width="85" height="75"></td>
+            </tr>
+        </table>
+
+            <hr>
+
+        <table cellpadding="1" border="1" cellspacing="0" width="50%" class="mT50">
+            <tbody>
+            <tr>
+                <td>aaa</td>
+                <td>bbb</td>
+                <td>cc</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <style>
+        .mT10 {
+            margin-top: 10px;
+        }
+
+        .mT30 {
+            margin-top: 20px;
+        }
+
+        .mT30 {
+            margin-top: 30px;
+        }
+
+        .mT50 {
+            margin-top: 50px;
+        }
+
+        .mT100 {
+            margin-top: 100px;
+        }
+
+        .pT10 {
+            padding-top: 10px;
+        }
+
+        .pT15 {
+            padding-top: 20px;
+        }
+
+        .pT30 {
+            padding-top: 30px;
+        }
+
+        .pT50 {
+            padding-top: 50px;
+        }
+
+        .pT100 {
+            padding-top: 100px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        .pull_left {
+            float: left;
+        }
+
+        .pull_right {
+            float: right;
+        }
+    </style>
+{% endblock %}
+
