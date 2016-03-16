@@ -4,7 +4,7 @@ from simulador.pagination import BasePagination
 
 
 class Target(models.Model):
-    name = models.CharField(max_length=40, unique=True, blank=False)
+    name = models.CharField(max_length=40, unique=True, blank=False, help_text="fdsf")
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(null=True, blank=True)
     zones = models.IntegerField(null=True, blank=True)
