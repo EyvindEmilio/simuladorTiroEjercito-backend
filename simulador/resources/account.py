@@ -235,7 +235,7 @@ class LoginView(views.APIView):
 
                 user_info['image'] = settings.GET_API_URL(request, user_info['image'])
 
-                if is_simulator is not None:
+                if is_simulator is None:
                     return Response({
                         'token': token[0].key,
                         'user': user_info,

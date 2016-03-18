@@ -3,6 +3,7 @@ from rest_framework import viewsets, filters, serializers
 from simulador.pagination import BasePagination
 from simulador.resources.lesson import Lesson, LessonDetailSerializer
 from simulador.resources.position import Position, PositionSerializer
+from simulador.resources.results_zone import ResultsZone, ResultsZoneSerializer
 from simulador.resources.type_of_fire import TypeOfFire, TypeOfFireDetailSerializer
 
 
@@ -10,13 +11,12 @@ class Results(models.Model):
     lesson = models.ForeignKey(Lesson)
     type_of_fire = models.ForeignKey(TypeOfFire)
     position = models.ForeignKey(Position)
-    score = models.IntegerField()
-    time = models.FloatField()
+    results_zone = models.ManyToManyField(ResultsZone)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return "Id: %s, Score: %s, Time: %s" % (self.id, self.score, self.time,)
+        return "%s" % self.id
 
     class Meta:
         ordering = ['id']
@@ -25,17 +25,18 @@ class Results(models.Model):
 class ResultsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Results
-        fields = ('id', 'lesson', 'type_of_fire', 'position', 'time', 'score')
+        fields = ('id', 'lesson', 'type_of_fire', 'position', 'results_zone',)
 
 
 class ResultsDetailSerializer(serializers.ModelSerializer):
     lesson = LessonDetailSerializer(read_only=True)
     type_of_fire = TypeOfFireDetailSerializer(read_only=True)
     position = PositionSerializer(read_only=True)
+    result_zone = ResultsZoneSerializer(read_only=True)
 
     class Meta:
         model = Results
-        fields = ('id', 'lesson', 'type_of_fire', 'position', 'time', 'score')
+        fields = ('id', 'lesson', 'type_of_fire', 'position', 'results_zone',)
 
 
 class ResultsViewSet(viewsets.ModelViewSet):
@@ -43,7 +44,7 @@ class ResultsViewSet(viewsets.ModelViewSet):
     serializer_class = ResultsSerializer
     pagination_class = BasePagination
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
-    filter_fields = ('type_of_fire', 'time', 'score')
+    filter_fields = ('type_of_fire', 'results_zone',)
     search_fields = ('$type_of_fire',)
 
     def get_serializer_class(self):

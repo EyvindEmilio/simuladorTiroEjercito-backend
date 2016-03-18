@@ -19,3 +19,5 @@ import resources.position
 import resources.type_of_fire
 import resources.reset_password
 import resources.results
+import resources.progress
+import resources.results_zone

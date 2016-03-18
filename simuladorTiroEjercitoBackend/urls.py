@@ -31,10 +31,12 @@ from simulador.resources.lesson import LessonViewSet
 from simulador.resources.military_grade import MilitaryGradeViewSet
 from simulador.resources.people import PeopleViewSet
 from simulador.resources.program_practice import ProgramPracticeViewSet
+from simulador.resources.progress import ProgressViewSet
 from simulador.resources.regiment import RegimentViewSet
 from simulador.resources.reports import HelloPDFView, HelloView, BaseReportView
 from simulador.resources.reset_password import ResetPasswordViewSet
 from simulador.resources.results import ResultsViewSet
+from simulador.resources.results_zone import ResultsZoneViewSet
 from simulador.resources.squadron import SquadronViewSet
 from simulador.resources.target_resource import TargetViewSet
 from simulador.resources.type_of_fire import TypeOfFireViewSet
@@ -56,10 +58,12 @@ router.register(r'ProgramPractice', ProgramPracticeViewSet)
 router.register(r'Regiment', RegimentViewSet)
 router.register(r'ResetPassword', ResetPasswordViewSet)
 router.register(r'Results', ResultsViewSet)
+router.register(r'ResultsZone', ResultsZoneViewSet)
 router.register(r'Squadron', SquadronViewSet)
 router.register(r'Target', TargetViewSet)
 router.register(r'TypeOfFire', TypeOfFireViewSet)
 router.register(r'UserType', UserTypeViewSet)
+router.register(r'ProgressType', ProgressViewSet)
 
 
 urlpatterns = [
