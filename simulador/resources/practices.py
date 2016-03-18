@@ -1,31 +1,51 @@
+import json
 from django.db import models
 from rest_framework import viewsets, filters, serializers
+from rest_framework.response import Response
 from simulador.pagination import BasePagination
 from simulador.resources.account import Account
 from simulador.resources.program_practice import ProgramPractice
-from simulador.resources.results import Results
+from simulador.resources.results import Results, ResultsSerializer
 
 
 class Practices(models.Model):
     account = models.ForeignKey(Account)
-    results = models.ManyToManyField(Results, help_text='''
+    results = models.TextField(max_length=300, help_text='''
                                         [
                                             {
-                                                "lesson":1
-                                                "type_of_fire":1
+                                                "lesson":1,
+                                                "type_of_fire":1,
                                                 "position":2,
                                                 "score": "5",
                                                 "time": 13.12
                                             },
                                             {
-                                                "lesson":1
-                                                "type_of_fire":2
+                                                "lesson":1,
+                                                "type_of_fire":2,
                                                 "position":2,
                                                 "score": "5",
                                                 "time": 13.12
                                             }
                                         ]
                                     ''')
+    # results = models.ManyToManyField(Results, help_text='''
+    #                                     [
+    #                                         {
+    #                                             "lesson":1
+    #                                             "type_of_fire":1
+    #                                             "position":2,
+    #                                             "score": "5",
+    #                                             "time": 13.12
+    #                                         },
+    #                                         {
+    #                                             "lesson":1
+    #                                             "type_of_fire":2
+    #                                             "position":2,
+    #                                             "score": "5",
+    #                                             "time": 13.12
+    #                                         }
+    #                                     ]
+    #                                 ''')
     date_practice = models.DateTimeField(auto_now_add=True)
     program_practice = models.ForeignKey(ProgramPractice)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -53,3 +73,40 @@ class PracticesViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
     filter_fields = ('id',)
     search_fields = ('$id',)
+
+    def create(self, request, *args, **kwargs):
+        data = self.request.data
+        response = ""
+        is_complete = False
+        if 'results' in data:
+            try:
+                results = json.loads(data['results'])
+                if type(results) in (tuple, list):
+                    list_serialized = []
+                    is_all_valid = True
+                    last_serialized = ""
+                    for result in results:
+                        serialized = ResultsSerializer(data=result)
+                        if serialized.is_valid():
+                            list_serialized.append(serialized)
+                        else:
+                            last_serialized = serialized
+                            is_all_valid = False
+
+                    if is_all_valid is True:
+                        list_id = []
+                        for serialized in list_serialized:
+                            serialized.save()
+                            list_id.append(serialized.data["id"])
+                        request.data["results"] = list_id
+                        is_complete = True
+                    else:
+                        response = last_serialized.errors
+                else:
+                    response = {"result": "El formato Json debe ser array"}
+            except:
+                response = {"result": "Formato Json no valido"}
+        if is_complete:
+            return super(PracticesViewSet, self).create(request, *args, **kwargs)
+        else:
+            return Response(response)

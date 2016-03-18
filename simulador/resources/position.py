@@ -15,7 +15,7 @@ class Position(models.Model):
         return "%s" % self.name
 
     class Meta:
-        ordering = ['name']
+        ordering = ['id']
 
 
 class PositionSerializer(serializers.ModelSerializer):

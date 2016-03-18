@@ -21,10 +21,10 @@ class TypeOfFire(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.name
+        return "%s , Position: %s, Distancia: %s" % (self.name, self.position, self.distance,)
 
     class Meta:
-        ordering = ['name']
+        ordering = ['id']
 
 
 class TypeOfFireSerializer(serializers.ModelSerializer):

@@ -16,7 +16,7 @@ class Results(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.name
+        return "Id: %s, Score: %s, Time: %s" % (self.id, self.score, self.time,)
 
     class Meta:
         ordering = ['id']
@@ -25,7 +25,7 @@ class Results(models.Model):
 class ResultsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Results
-        fields = ('lesson', 'type_of_fire', 'position',  'time', 'score')
+        fields = ('id', 'lesson', 'type_of_fire', 'position', 'time', 'score')
 
 
 class ResultsViewSet(viewsets.ModelViewSet):
