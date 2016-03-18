@@ -21,7 +21,8 @@ class ProgramPractice(models.Model):
     completed = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return "%s" % self.title
+        return "%s , De: %s ----a---- %s " % (self.title, self.start, self.end,)
+
     #
     # @property
     # def _get_finish(self):

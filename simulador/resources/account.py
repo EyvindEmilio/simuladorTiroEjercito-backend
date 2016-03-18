@@ -97,7 +97,7 @@ class Account(AbstractBaseUser):
         return self.is_superuser
 
     def __unicode__(self):
-        return "%s" % self.ci
+        return "%s: %s %s,  %s" % (self.user_type, self.first_name, self.last_name, self.ci,)
 
     def get_full_name(self):
         return ' '.join([self.username])
