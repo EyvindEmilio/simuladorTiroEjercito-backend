@@ -20,7 +20,7 @@ ReportsViews = {
                           ('name', 'Nombre', 'text'),
                           ('description', 'Descripcion', 'text'),
                           ('zones', 'Numero de zonas', 'text'),
-                          ('updated_at', 'Ultima modificacion', 'text'),
+                          ('updated_at', 'Ultima modificacion', 'datetime'),
                           )},
     "position": {"name": "Reporte de posiciones de tiro", "Serializer": PositionSerializer,
                  "params": (('image', 'Imagen', 'image'),

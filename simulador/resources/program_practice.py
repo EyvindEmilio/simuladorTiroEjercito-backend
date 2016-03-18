@@ -20,8 +20,8 @@ class ProgramPractice(models.Model):
     finish = models.BooleanField(default=False)
     completed = models.BooleanField(default=False)
 
-    # def __unicode__(self):
-    #     return self.title
+    def __unicode__(self):
+        return "%s" % self.title
     #
     # @property
     # def _get_finish(self):
