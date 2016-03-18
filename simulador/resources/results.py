@@ -1,9 +1,9 @@
 from django.db import models
 from rest_framework import viewsets, filters, serializers
 from simulador.pagination import BasePagination
-from simulador.resources.lesson import Lesson
-from simulador.resources.position import Position
-from simulador.resources.type_of_fire import TypeOfFire
+from simulador.resources.lesson import Lesson, LessonDetailSerializer
+from simulador.resources.position import Position, PositionSerializer
+from simulador.resources.type_of_fire import TypeOfFire, TypeOfFireDetailSerializer
 
 
 class Results(models.Model):
@@ -28,6 +28,16 @@ class ResultsSerializer(serializers.ModelSerializer):
         fields = ('id', 'lesson', 'type_of_fire', 'position', 'time', 'score')
 
 
+class ResultsDetailSerializer(serializers.ModelSerializer):
+    lesson = LessonDetailSerializer(read_only=True)
+    type_of_fire = TypeOfFireDetailSerializer(read_only=True)
+    position = PositionSerializer(read_only=True)
+
+    class Meta:
+        model = Results
+        fields = ('id', 'lesson', 'type_of_fire', 'position', 'time', 'score')
+
+
 class ResultsViewSet(viewsets.ModelViewSet):
     queryset = Results.objects.all()
     serializer_class = ResultsSerializer
@@ -35,4 +45,11 @@ class ResultsViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
     filter_fields = ('type_of_fire', 'time', 'score')
     search_fields = ('$type_of_fire',)
-    # permission_classes = (IsAuthenticated,)
+
+    def get_serializer_class(self):
+        query_params = self.request.query_params
+        if 'is_complete_serializer' in query_params and query_params['is_complete_serializer'] == '1':
+            return ResultsDetailSerializer
+        else:
+            return ResultsSerializer
+            # permission_classes = (IsAuthenticated,)

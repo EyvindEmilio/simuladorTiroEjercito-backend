@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from simulador.pagination import BasePagination
 from simulador.resources.account import Account
 from simulador.resources.program_practice import ProgramPractice
-from simulador.resources.results import Results, ResultsSerializer
+from simulador.resources.results import Results, ResultsSerializer, ResultsDetailSerializer
 
 
 class Practices(models.Model):
@@ -71,8 +71,46 @@ class PracticesViewSet(viewsets.ModelViewSet):
     serializer_class = PracticesSerializer
     pagination_class = BasePagination
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
-    filter_fields = ('id',)
-    search_fields = ('$id',)
+    filter_fields = ('id', 'account', 'date_practice', 'program_practice',)
+    search_fields = ('$id', 'account', 'date_practice', 'program_practice',)
+
+    def retrieve(self, request, pk=None):
+        query_params = self.request.query_params
+        data = super(PracticesViewSet, self).retrieve(self, request, pk)
+        data.data["params"] = query_params
+        result = data.data
+        result["results"] = result["results"].replace("[", "")
+        result["results"] = result["results"].replace("]", "")
+        list_id = result["results"].split(",")
+        serial = []
+        for id_result in list_id:
+            objects = Results.objects.filter(id=int(id_result))
+            if 'is_complete_serializer' in query_params and query_params['is_complete_serializer'] == '1':
+                data_serial = ResultsDetailSerializer(objects, many=True)
+            else:
+                data_serial = ResultsSerializer(objects, many=True)
+            serial.append(data_serial.data[0])
+        result["results"] = serial
+        return Response(data.data)
+
+    def list(self, request, *args, **kwargs):
+        query_params = self.request.query_params
+        data = super(PracticesViewSet, self).list(self, request)
+        data.data["params"] = query_params
+        for result in data.data["results"]:
+            result["results"] = result["results"].replace("[", "")
+            result["results"] = result["results"].replace("]", "")
+            list_id = result["results"].split(",")
+            serial = []
+            for id_result in list_id:
+                objects = Results.objects.filter(id=int(id_result))
+                if 'is_complete_serializer' in query_params and query_params['is_complete_serializer'] == '1':
+                    data_serial = ResultsDetailSerializer(objects, many=True)
+                else:
+                    data_serial = ResultsSerializer(objects, many=True)
+                serial.append(data_serial.data[0])
+            result["results"] = serial
+        return Response(data.data)
 
     def create(self, request, *args, **kwargs):
         data = self.request.data

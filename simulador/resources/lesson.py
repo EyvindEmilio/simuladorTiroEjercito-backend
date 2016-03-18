@@ -1,8 +1,7 @@
 from django.db import models
 from rest_framework import viewsets, filters, serializers
 from simulador.pagination import BasePagination
-from simulador.resources.target_resource import Target, TargetSerializer
-from simulador.resources.type_of_fire import TypeOfFire, TypeOfFireSerializer, TypeOfFireDetailSerializer
+from simulador.resources.type_of_fire import TypeOfFire, TypeOfFireDetailSerializer
 
 
 class Lesson(models.Model):
