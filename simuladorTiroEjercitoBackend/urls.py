@@ -24,6 +24,7 @@ from simulador.resources.account import LogoutView
 from simulador.resources.battalion import BattalionViewSet
 from simulador.resources.city import CityViewSet
 from simulador.resources.company import CompanyViewSet
+from simulador.resources.logs import LogsView, LogsViewSet
 from simulador.resources.position import PositionViewSet
 from simulador.resources.practices import PracticesViewSet
 from simulador.resources.grade import GradeViewSet
@@ -64,6 +65,7 @@ router.register(r'Target', TargetViewSet)
 router.register(r'TypeOfFire', TypeOfFireViewSet)
 router.register(r'UserType', UserTypeViewSet)
 router.register(r'ProgressType', ProgressViewSet)
+router.register(r'LogsView', LogsViewSet)
 
 
 urlpatterns = [
@@ -76,6 +78,7 @@ urlpatterns = [
     url(r'^docs/', include('rest_framework_swagger.urls')),
     url(r'^Login/', LoginView.as_view(), name="login"),
     url(r'^Logout/', LogoutView.as_view(), name="logout"),
+    url(r'^Logs/', LogsView.as_view(), name="logs"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, )

@@ -1,4 +1,5 @@
-from django.db import models
+from django.db import models, router
+from django.db.models.deletion import Collector
 from rest_framework import viewsets, filters, serializers
 from simulador.pagination import BasePagination
 
@@ -21,6 +22,12 @@ class UserTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserType
         fields = ('id', 'name', 'short', 'description')
+
+
+class UserTypeShortDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserType
+        fields = ('id', 'short')
 
 
 class UserTypeViewSet(viewsets.ModelViewSet):

@@ -1,3 +1,4 @@
+import simple_audit
 from django.db import models
 # Create your models here.
 
@@ -21,3 +22,20 @@ import resources.reset_password
 import resources.results
 import resources.progress
 import resources.results_zone
+import resources.logs
+
+simple_audit.register(resources.account.Account,
+                      resources.city.City,
+                      resources.grade.Grade,
+                      resources.military_grade.MilitaryGrade,
+                      resources.target_resource.Target,
+                      resources.lesson.Lesson,
+                      resources.program_practice.ProgramPractice,
+                      resources.user_type.UserType,
+                      resources.practices.Practices,
+                      resources.position.Position,
+                      resources.type_of_fire.TypeOfFire,
+                      resources.reset_password.ResetPassword,
+                      resources.results.Results,
+                      resources.results_zone.ResultsZone,
+                      )

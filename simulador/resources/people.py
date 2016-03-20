@@ -15,7 +15,7 @@ class People(models.Model):
     last_name = models.CharField(max_length=20, help_text='Ejem. Peres', blank=True, null=True, unique=False)
     date_of_birth = models.DateField(help_text='Ejem. 12/03/1993', blank=True, null=True)
     country = models.CharField(max_length=20, help_text='Ejem. Bolivia', blank=True, null=True)
-    city = models.ForeignKey(City, help_text='Id: Ejem. 1', blank=True, null=True)
+    city = models.ForeignKey(City, help_text='Id: Ejem. 1')
     image = models.ImageField(upload_to="Profile/", blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)

@@ -1,10 +1,5 @@
 from django.contrib.auth import authenticate
 import datetime
-
-from django.contrib.auth.hashers import SHA1PasswordHasher, PBKDF2PasswordHasher, make_password
-from django.contrib.sites.models import Site
-from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import send_mail
 from rest_framework.authtoken.models import Token
 from django.db import models
 from django.contrib.auth.models import (
@@ -15,13 +10,15 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly, A
 from rest_framework.response import Response
 from rest_framework.reverse import reverse, reverse_lazy
 from simulador.pagination import BasePagination
-from simulador.resources.city import CitySerializer, City
-from simulador.resources.military_grade import MilitaryGrade, MilitaryGradeSerializer
+from simulador.resources.city import CitySerializer, City, CityShortDetailSerializer
+from simulador.resources.military_grade import MilitaryGrade, MilitaryGradeSerializer, \
+    MilitaryGradeShortDetailSerializer
 from simulador.resources.people import PeopleSerializer
 from simulador import strings
 # from simulador.resources.program_practice import ProgramPracticeDetailSerializer, ProgramPractice
-from simulador.resources.user_type import UserType, UserTypeSerializer
+from simulador.resources.user_type import UserType, UserTypeSerializer, UserTypeShortDetailSerializer
 from simuladorTiroEjercitoBackend import settings
+
 
 GENDERS_CHOICES = (
     ('M', 'Masculino'),
@@ -59,8 +56,8 @@ class Account(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-    user_type = models.ForeignKey(UserType, null=False, blank=False)
 
+    user_type = models.ForeignKey(UserType)
     ##Auth
     ci = models.CharField(max_length=10, help_text='Ejem. 9981765', blank=False, null=False, unique=True)
     username = models.CharField(max_length=40, unique=True)
@@ -72,9 +69,9 @@ class Account(AbstractBaseUser):
     first_name = models.CharField(max_length=20, help_text='Ejem. Juan', unique=False)
     last_name = models.CharField(max_length=20, help_text='Ejem. Peres', blank=True, null=True, unique=False)
     date_of_birth = models.DateField(help_text='Ejem. 12/03/1993', blank=True, null=True)
-    city = models.ForeignKey(City, help_text='Id: Ejem. 1', blank=True, null=True)
+    city = models.ForeignKey(City, help_text='Id: Ejem. 1')
     ##Grade
-    military_grade = models.ForeignKey(MilitaryGrade, null=True, blank=True)
+    military_grade = models.ForeignKey(MilitaryGrade)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -107,6 +104,33 @@ class Account(AbstractBaseUser):
 
     def is_admin_user(self):
         return self.is_admin
+
+    def delete(self):
+        if self.city:
+            self.city.delete()
+        if self.user_type:
+            self.user_type.delete()
+        if self.military_grade:
+            self.military_grade.delete()
+        super(Account, self).delete()
+
+
+class AccountShortDetailSerializer(serializers.ModelSerializer):
+    # info = PeopleSerializer(read_only=True)
+    # image = serializers.SerializerMethodField()
+    #
+    # def get_image(self, obj):
+    #     return self.context['request'].build_absolute_uri(self.image)
+    city = CityShortDetailSerializer(read_only=True)
+    user_type = UserTypeShortDetailSerializer(read_only=True)
+    military_grade = MilitaryGradeShortDetailSerializer(read_only=True)
+
+    class Meta:
+        model = Account
+
+        fields = (
+            'id', 'user_type', 'username', 'email', 'image',
+            'ci', 'first_name', 'last_name', 'city', 'military_grade')
 
 
 class AccountSerializer(serializers.ModelSerializer):

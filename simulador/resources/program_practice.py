@@ -8,7 +8,7 @@ from simulador.resources.lesson import LessonDetailSerializer, Lesson
 
 class ProgramPractice(models.Model):
     title = models.CharField(max_length=40, unique=True, blank=False)
-    instructor = models.ForeignKey(Account, null=False, related_name='instructor')
+    instructor = models.ForeignKey(Account, related_name='instructor')
     lesson = models.ManyToManyField(Lesson, null=False)
     start = models.DateTimeField(null=False)
     end = models.DateTimeField(null=False)

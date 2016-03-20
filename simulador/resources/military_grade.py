@@ -22,6 +22,12 @@ class MilitaryGradeSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'short', 'updated_at')
 
 
+class MilitaryGradeShortDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MilitaryGrade
+        fields = ('id', 'short')
+
+
 class MilitaryGradeViewSet(viewsets.ModelViewSet):
     queryset = MilitaryGrade.objects.all()
     serializer_class = MilitaryGradeSerializer

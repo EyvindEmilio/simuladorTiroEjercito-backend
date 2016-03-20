@@ -1,8 +1,6 @@
+import simple_audit
 from django.db import models
 from rest_framework import viewsets, filters, serializers
-
-
-# from simulador.models import City
 from simulador.pagination import BasePagination
 
 
@@ -25,6 +23,12 @@ class CitySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'short')
 
 
+class CityShortDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = ('id', 'short')
+
+
 class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()
     serializer_class = CitySerializer
@@ -32,4 +36,3 @@ class CityViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
     filter_fields = ('id', 'name', 'short')
     search_fields = ('$name',)
-    # permission_classes = (IsAuthenticated,)

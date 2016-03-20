@@ -7,10 +7,10 @@ from simulador.resources.target_resource import Target, TargetSerializer
 
 class TypeOfFire(models.Model):
     name = models.CharField(max_length=40, unique=False, blank=False)
-    position = models.ForeignKey(Position, null=False)
+    position = models.ForeignKey(Position)
     distance = models.FloatField(blank=False, null=False)
     selector = models.CharField(max_length=30, blank=True, null=True)
-    target = models.ForeignKey(Target, null=False)
+    target = models.ForeignKey(Target)
     chargers = models.IntegerField(blank=False, null=False)
     cartridges = models.IntegerField(blank=False, null=False)
     modality = models.TextField(max_length=100, blank=True, null=True)

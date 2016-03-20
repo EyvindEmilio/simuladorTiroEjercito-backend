@@ -32,7 +32,7 @@ class ResultsDetailSerializer(serializers.ModelSerializer):
     lesson = LessonDetailSerializer(read_only=True)
     type_of_fire = TypeOfFireDetailSerializer(read_only=True)
     position = PositionSerializer(read_only=True)
-    result_zone = ResultsZoneSerializer(read_only=True)
+    results_zone = ResultsZoneSerializer(read_only=True, many=True)
 
     class Meta:
         model = Results

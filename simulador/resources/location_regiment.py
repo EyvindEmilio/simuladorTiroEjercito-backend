@@ -9,10 +9,10 @@ from simulador.resources.target_resource import Target
 
 
 class LocationRegiment(models.Model):
-    regiment = models.ForeignKey(Regiment, null=False)
-    battalion = models.ForeignKey(Battalion, null=True, blank=True)
-    company = models.ForeignKey(Company, null=True, blank=True)
-    squadron = models.ForeignKey(Squadron, null=True, blank=True)
+    regiment = models.ForeignKey(Regiment)
+    battalion = models.ForeignKey(Battalion)
+    company = models.ForeignKey(Company)
+    squadron = models.ForeignKey(Squadron)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 

@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'rest_framework_swagger',
     'corsheaders',
     'easy_pdf',
+    'simple_audit'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -54,8 +55,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'simple_audit.middleware.TrackingRequestOnThreadLocalMiddleware',
 )
-
+DJANGO_SIMPLE_AUDIT_ACTIVATED = True
 ROOT_URLCONF = 'simuladorTiroEjercitoBackend.urls'
 
 TEMPLATES = [
@@ -84,6 +86,16 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    # 'default': {
+    #     'NAME': 'simmulador_tiro',
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'USER': 'emi',
+    #     'HOST': '127.0.0.1',
+    #     'PASSWORD': 'emilio',
+    #     'OPTIONS': {
+    #       'autocommit': True,
+    #     },
+    # }
 }
 
 # Internationalization
@@ -113,6 +125,8 @@ def GET_API_URL(request, dir=""):
     # return "http://127.0.0.1:900"
     if request.is_secure():
         return "https://%s%s" % (request.META['HTTP_HOST'], dir,)
+    elif dir is None or dir is "":
+        return ""
     else:
         return "http://%s%s" % (request.META['HTTP_HOST'], dir,)
 
@@ -120,7 +134,6 @@ def GET_API_URL(request, dir=""):
 STATICFILES_DIRS = (
     os.path.join(os.path.dirname(BASE_DIR), 'static'),
 )
-
 
 AUTH_USER_MODEL = 'simulador.Account'
 
