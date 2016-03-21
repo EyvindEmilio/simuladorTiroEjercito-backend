@@ -201,9 +201,6 @@ class PracticesViewSet(viewsets.ModelViewSet):
                     last_serialized = ""
                     try:
                         for result in results:
-
-                            list_id = []
-                            list_id_zones = []
                             # add zones
                             list_result_zone = []
                             list_result_zone_valid = True

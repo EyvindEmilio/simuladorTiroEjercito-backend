@@ -53,11 +53,10 @@ class LogsViewSet(viewsets.ModelViewSet):
     serializer_class = AuditSerializer
     pagination_class = BasePagination
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
-
-    # filter_fields = ('object_id', 'object_id_int', 'object_id_int', 'format', 'object_repr', 'content_type', 'revision')
     search_fields = (
         '$audit_request__user__first_name', '$audit_request__user__last_name', '$audit_request__user__ci',
         '$audit_request__user__user_type__short', '$date', '$description')
+    http_method_names = ('get',)
 
     def list(self, request, *args, **kwargs):
         data_request = super(LogsViewSet, self).list(self, request)
@@ -66,14 +65,14 @@ class LogsViewSet(viewsets.ModelViewSet):
             description = result['description']
             operation = result['operation']
             if operation == '1' or operation == 1:
-                description = description.replace("field ", "<b>-</b> Campo <b>")
+                description = description.replace("field ", "<b>-</b> <b>")
                 description = description.replace("' to '", "</spam>' a <spam class='bg-success'>'")
                 description = description.replace(" to '", "</spam> a <spam class='bg-success'>")
                 description = description.replace(" to ", "</spam> a <spam class='bg-success'>")
                 description = description.replace("' was changed from '",
-                                                  " </b> a sido cambiado de <spam class='bg-danger'> '")
+                                                  " </b> de <spam class='bg-danger'> '")
                 description = description.replace(" was changed from ",
-                                                  " </b> a sido cambiado de <spam class='bg-danger'> ")
+                                                  " </b> de <spam class='bg-danger'> ")
                 description = description.replace("\n", "</spam><br>\n")
                 description = description.replace("'\n", "'</spam><br>\n")
                 description = "Con ID: <b>%s</b><br> %s" % (result['object_id'], description)

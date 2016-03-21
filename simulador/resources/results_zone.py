@@ -1,13 +1,10 @@
 from django.db import models
 from rest_framework import viewsets, filters, serializers
 from simulador.pagination import BasePagination
-from simulador.resources.lesson import Lesson, LessonDetailSerializer
-from simulador.resources.position import Position, PositionSerializer
-from simulador.resources.type_of_fire import TypeOfFire, TypeOfFireDetailSerializer
 
 
 class ResultsZone(models.Model):
-    zone = models.CharField(max_length=5)
+    zone = models.IntegerField()
     time = models.IntegerField()
     score = models.IntegerField()
 

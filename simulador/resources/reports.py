@@ -41,7 +41,7 @@ ReportsViews = {
                                   )},
     "account": {"name": "Reporte de cuentas de usuarios", "Serializer": AccountSerializer,
                 "params": (
-                    ('image', 'Perfil', 'image'),
+                    # ('image', 'Perfil', 'image'),
                     ('first_name', 'Nombres', 'text'),
                     ('last_name', 'Apellidos', 'text'),
                     ('ci', 'Carnet', 'text'),
