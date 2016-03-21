@@ -25,12 +25,12 @@ class Practices(models.Model):
                                                 "position":2,
                                                 "results_zone":[
                                                     {
-                                                        "zone": "10",
+                                                        "zone": 10,
                                                         "time": 3000,
                                                         "score": 10
                                                     },
                                                     {
-                                                        "zone": "3",
+                                                        "zone": 3,
                                                         "time": 3000,
                                                         "score": 3
                                                     }
@@ -42,12 +42,12 @@ class Practices(models.Model):
                                                 "position":2,
                                                 "results_zone":[
                                                     {
-                                                        "zone": "5",
+                                                        "zone": 5,
                                                         "time": 3000,
                                                         "score": 10
                                                     },
                                                     {
-                                                        "zone": "5",
+                                                        "zone": 5,
                                                         "time": 3000,
                                                         "score": 5
                                                     }
