@@ -1,1 +1,36 @@
-[{\"lesson\":1,\"type_of_fire\":1,\"position\":2,\"results_zone\":[{\"zone\":\"10\",\"time\":3000,\"score\":10},{\"zone\":\"3\",\"time\":3000,\"score\":3}]},{\"lesson\":1,\"type_of_fire\":2,\"position\":2,\"results_zone\":[{\"zone\":\"5\",\"time\":3000,\"score\":10},{\"zone\":\"5\",\"time\":3000,\"score\":5}]}]
+[
+  {
+    "lesson": 1,
+    "type_of_fire": 1,
+    "position": 2,
+    "results_zone": [
+      {
+        "zone": 10,
+        "time": 3000,
+        "score": 10
+      },
+      {
+        "zone": 3,
+        "time": 3000,
+        "score": 3
+      }
+    ]
+  },
+  {
+    "lesson": 1,
+    "type_of_fire": 2,
+    "position": 2,
+    "results_zone": [
+      {
+        "zone": 5,
+        "time": 3000,
+        "score": 10
+      },
+      {
+        "zone": 5,
+        "time": 3000,
+        "score": 5
+      }
+    ]
+  }
+]

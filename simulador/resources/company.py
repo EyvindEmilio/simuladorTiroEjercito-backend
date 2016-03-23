@@ -1,13 +1,12 @@
 from django.db import models
 from rest_framework import viewsets, filters, serializers
 from simulador.pagination import BasePagination
-from simulador.resources.battalion import Battalion
-from simulador.resources.regiment import Regiment
+from simulador.resources.account import Account
 
 
 class Company(models.Model):
     name = models.CharField(max_length=40, unique=True, blank=False)
-    battalion = models.ForeignKey(Battalion)
+    instructor = models.ForeignKey(Account)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -23,7 +22,7 @@ class Company(models.Model):
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = ('id', 'name', 'battalion', 'description', 'image', 'created_at', 'updated_at')
+        fields = ('id', 'name', 'instructor', 'description', 'image', 'updated_at')
 
 
 class CompanyViewSet(viewsets.ModelViewSet):
@@ -31,6 +30,5 @@ class CompanyViewSet(viewsets.ModelViewSet):
     serializer_class = CompanySerializer
     pagination_class = BasePagination
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
-    filter_fields = ('name',)
-    search_fields = ('$name',)
-    # permission_classes = (IsAuthenticated,)
+    filter_fields = ('name', 'instructor')
+    search_fields = ('$name', '$instructor')

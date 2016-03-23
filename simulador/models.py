@@ -1,5 +1,4 @@
 import simple_audit
-from django.db import models
 # Create your models here.
 
 import resources.account
@@ -38,4 +37,6 @@ simple_audit.register(resources.account.Account,
                       resources.reset_password.ResetPassword,
                       resources.results.Results,
                       resources.results_zone.ResultsZone,
+                      resources.squadron.Squadron,
+                      resources.company.Company,
                       )
