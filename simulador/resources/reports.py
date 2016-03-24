@@ -1,16 +1,17 @@
 import base64
+
 from django.shortcuts import render_to_response
-from django.utils import html
 from django.views.generic import View
 from easy_pdf.views import PDFTemplateView
-from reportlab.graphics.charts.piecharts import Pie3d, Pie
+from reportlab.graphics.charts.piecharts import Pie
 from reportlab.graphics.shapes import Drawing, String
-from reportlab.lib.colors import PCMYKColor, CMYKColor
+from reportlab.lib.colors import PCMYKColor
 from simulador.resources.account import AccountSerializer
+from simulador.resources.image_repository import ImageRepository, ImageRepositorySerializer
 from simulador.resources.lesson import LessonSerializer
 from simulador.resources.military_grade import MilitaryGradeSerializer
 from simulador.resources.position import PositionSerializer
-from simulador.resources.target_resource import Target, TargetSerializer, TargetViewSet
+from simulador.resources.target_resource import TargetSerializer
 from simulador.templatetags.pdf_filters import get64
 from simuladorTiroEjercitoBackend.settings import GET_API_URL
 
@@ -106,6 +107,27 @@ class BaseReportView(PDFTemplateView):
             data=values,
             params=params,
             table=generate_table_render(self, values, params),
+            **kwargs)
+
+
+class BaseReport2View(PDFTemplateView):
+    template_name = "list_report_image.html"
+
+    def get_context_data(self, **kwargs):
+        req = kwargs["rep"]
+
+        logo_ejercito_url = "%s" % GET_API_URL(self.request, "/static/logo_ejercito.png")
+        logo_bolivia_url = "%s" % GET_API_URL(self.request, "/static/escudo_bolivia.png")
+        obj_Data = ImageRepository.objects.filter(id=int(req))
+        data_Serial = ImageRepositorySerializer(obj_Data, many=True).data
+        data_Serial = data_Serial[0]['image']
+        logo_reporte = "%s" % GET_API_URL(self.request, "%s" %(data_Serial))
+        return super(BaseReport2View, self).get_context_data(
+            pagesize="A4",
+            title="Reporte de progreso en simulador",
+            logo_ejercito_url=logo_ejercito_url,
+            logo_bolivia_url=logo_bolivia_url,
+            logo_imagen_url=logo_reporte,
             **kwargs)
 
 

@@ -22,6 +22,8 @@ import resources.results
 import resources.progress
 import resources.results_zone
 import resources.logs
+import resources.image_repository
+import resources.report_repository
 
 simple_audit.register(resources.account.Account,
                       resources.city.City,

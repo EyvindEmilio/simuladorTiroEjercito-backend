@@ -24,6 +24,7 @@ from simulador.resources.account import LogoutView
 from simulador.resources.battalion import BattalionViewSet
 from simulador.resources.city import CityViewSet
 from simulador.resources.company import CompanyViewSet
+from simulador.resources.image_repository import ImageRepository, ImageRepositoryViewSet
 from simulador.resources.logs import LogsView, LogsViewSet
 from simulador.resources.position import PositionViewSet
 from simulador.resources.practices import PracticesViewSet
@@ -34,7 +35,7 @@ from simulador.resources.people import PeopleViewSet
 from simulador.resources.program_practice import ProgramPracticeViewSet
 from simulador.resources.progress import ProgressViewSet
 from simulador.resources.regiment import RegimentViewSet
-from simulador.resources.reports import HelloPDFView, HelloView, BaseReportView
+from simulador.resources.reports import HelloPDFView, HelloView, BaseReportView, BaseReport2View
 from simulador.resources.reset_password import ResetPasswordViewSet
 from simulador.resources.results import ResultsViewSet
 from simulador.resources.results_zone import ResultsZoneViewSet
@@ -66,6 +67,7 @@ router.register(r'TypeOfFire', TypeOfFireViewSet)
 router.register(r'UserType', UserTypeViewSet)
 router.register(r'ProgressType', ProgressViewSet)
 router.register(r'LogsView', LogsViewSet)
+router.register(r'ImageRepository', ImageRepositoryViewSet)
 
 
 urlpatterns = [
@@ -74,6 +76,7 @@ urlpatterns = [
     url(r'^testPDF', HelloPDFView.as_view()),
     url(r'^testHTML', HelloView.as_view()),
     url(r'^report/(?P<rep>[a-zA-Z0-9_.-]+)/$', BaseReportView.as_view()),
+    url(r'^view_image/(?P<rep>[a-zA-Z0-9_.-]+)/$', BaseReport2View.as_view()),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^docs/', include('rest_framework_swagger.urls')),
     url(r'^Login/', LoginView.as_view(), name="login"),
