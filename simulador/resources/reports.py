@@ -183,3 +183,4 @@ class HelloView(View):
         aa = d.asString('gif')
         binaryStuff = "%s%s" % ("data:image/png;base64,", base64.b64encode(aa))
         return render_to_response("demo_pdf.html", {"binaryss": binaryStuff})
+

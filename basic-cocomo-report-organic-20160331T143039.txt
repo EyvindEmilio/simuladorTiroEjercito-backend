@@ -1,0 +1,69 @@
+Basic COCOMO, using software project class: Organic
+Total lines of code  = 2284 (2,284 kLOC)
+Effort Applied   (E) =   5,713 [person-months] (2,4 * kLOC ^ 1,05)
+Development Time (D) =   4,848 [months] (2,5 * E ^ 0,38)
+People Required  (P) =   1,178 [number of] (E / D)
+
+/manage.py: 7 LOC
+/simulador/static/render.html: 9 LOC
+/simulador/admin.py: 2 LOC
+/simulador/tests.py: 2 LOC
+/simulador/views.py: 2 LOC
+/simulador/models.py: 42 LOC
+/simulador/resources/city.py: 28 LOC
+/simulador/resources/logs.py: 106 LOC
+/simulador/resources/grade.py: 24 LOC
+/simulador/resources/lesson.py: 32 LOC
+/simulador/resources/people.py: 32 LOC
+/simulador/resources/account.py: 228 LOC
+/simulador/resources/company.py: 26 LOC
+/simulador/resources/reports.py: 164 LOC
+/simulador/resources/results.py: 44 LOC
+/simulador/resources/__init__.py: 1 LOC
+/simulador/resources/position.py: 25 LOC
+/simulador/resources/progress.py: 39 LOC
+/simulador/resources/regiment.py: 25 LOC
+/simulador/resources/squadron.py: 27 LOC
+/simulador/resources/battalion.py: 27 LOC
+/simulador/resources/practices.py: 237 LOC
+/simulador/resources/user_type.py: 30 LOC
+/simulador/resources/results_zone.py: 22 LOC
+/simulador/resources/type_of_fire.py: 45 LOC
+/simulador/resources/military_grade.py: 28 LOC
+/simulador/resources/reset_password.py: 81 LOC
+/simulador/resources/target_resource.py: 26 LOC
+/simulador/resources/image_repository.py: 41 LOC
+/simulador/resources/program_practice.py: 204 LOC
+/simulador/resources/location_regiment.py: 30 LOC
+/simulador/resources/report_repository.py: 26 LOC
+/simulador/strings.py: 4 LOC
+/simulador/__init__.py: 0 LOC
+/simulador/templatetags/__init__.py: 0 LOC
+/simulador/templatetags/pdf_filters.py: 45 LOC
+/simulador/pagination.py: 6 LOC
+/templates/render.html: 14 LOC
+/templates/demo_pdf.html: 79 LOC
+/templates/list_report.html: 140 LOC
+/templates/list_report_image.html: 113 LOC
+/simuladorTiroEjercitoBackend/urls.py: 80 LOC
+/simuladorTiroEjercitoBackend/wsgi.py: 12 LOC
+/simuladorTiroEjercitoBackend/__init__.py: 0 LOC
+/simuladorTiroEjercitoBackend/settings.py: 129 LOC
+
+Excluded files in:
+	/node_modules
+	/.tmp
+	/.sass-cache
+	/bower_components
+	/.idea
+	/dist
+	/test
+	/app/scripts/plugins
+	/app/scripts/html5shiv.js
+	/app/scripts/highcharts.src.js
+	/app/scripts/angular-locale_es-es.min.js
+	/web.js
+	/Gruntfile.js
+	/app/fonts
+	/env
+	/simulador/migrations/
