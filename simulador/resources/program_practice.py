@@ -1,6 +1,8 @@
+import datetime
+
 from django.db import models
 from rest_framework import viewsets, filters, serializers, status
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 from simulador.pagination import BasePagination
 from simulador.resources.account import Account, AccountDetailSerializer
@@ -49,6 +51,7 @@ class ProgramPracticeDetailSerializer(serializers.ModelSerializer):
     instructor = AccountDetailSerializer(read_only=True)
     lesson = LessonDetailSerializer(read_only=True, many=True)
     list = AccountDetailSerializer(read_only=True, many=True)
+
     class Meta:
         model = ProgramPractice
         fields = (
@@ -205,6 +208,21 @@ class ProgramPracticeViewSet(viewsets.ModelViewSet):
             return ProgramPracticeDetailSerializer
         else:
             return ProgramPracticeSerializer
+
+    @list_route()
+    def current(self, request):
+        query_params = self.request.query_params
+
+        if 'user' in query_params:
+            user = int(query_params['user'])
+            today = datetime.datetime.today()
+            objects_practice = ProgramPractice.objects.filter(end__gte=today, start__lte=today, list__id=user)
+            practice_data = ProgramPracticeDetailSerializer(objects_practice, many=True)
+            return Response({
+                'practice': practice_data.data
+            })
+        else:
+            return Response({"Id de usuario": "debe enviar id de usuario en 'query params', Ejm. '../?user=3'"})
 
     @detail_route()
     def results(self, request, pk):

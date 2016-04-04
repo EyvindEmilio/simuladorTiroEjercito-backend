@@ -1,24 +1,17 @@
 from django.contrib.auth import authenticate
-import datetime
-from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 from django.db import models
-from django.contrib.auth.models import (
-    BaseUserManager, AbstractBaseUser,
-    AnonymousUser, User)
 from rest_framework import viewsets, views, serializers, status, filters
-from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly, AllowAny
+from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.response import Response
-from rest_framework.reverse import reverse, reverse_lazy
+from simulador import strings
 from simulador.pagination import BasePagination
 from simulador.resources.city import CitySerializer, City, CityShortDetailSerializer
 from simulador.resources.military_grade import MilitaryGrade, MilitaryGradeSerializer, \
     MilitaryGradeShortDetailSerializer
-from simulador.resources.people import PeopleSerializer
-from simulador import strings
-# from simulador.resources.program_practice import ProgramPracticeDetailSerializer, ProgramPractice
 from simulador.resources.user_type import UserType, UserTypeSerializer, UserTypeShortDetailSerializer
 from simuladorTiroEjercitoBackend import settings
-
 
 GENDERS_CHOICES = (
     ('M', 'Masculino'),
@@ -224,7 +217,6 @@ class LoginView(views.APIView):
         data = request.data
         username = data.get('username', None)
         password = data.get('password', None)
-        is_simulator = data.get('is_simulator', None)
 
         if not request.user.is_anonymous():
             account = request.user
@@ -259,28 +251,17 @@ class LoginView(views.APIView):
 
                 user_info['image'] = settings.GET_API_URL(request, user_info['image'])
 
-                if is_simulator is None:
-                    return Response({
-                        'token': token[0].key,
-                        'user': user_info,
-                    })
-                else:
-                    today = datetime.datetime.today()
-                    from simulador.resources.program_practice import ProgramPractice
-                    objects_practice = ProgramPractice.objects.filter(end__gte=today, start__lte=today)
-                    from simulador.resources.program_practice import ProgramPracticeDetailSerializer
-                    practice_data = ProgramPracticeDetailSerializer(objects_practice, many=True)
-                    return Response({
-                        'token': token[0].key,
-                        'user': user_info,
-                        'practice': practice_data.data
-                    })
-
-            return Response(
-                {
-                    'detail': strings.UNAUTHORIZED
-                }, status=status.HTTP_401_UNAUTHORIZED)
-        return Response({'detail': strings.INVALID_CREDENTIALS}, status=status.HTTP_401_UNAUTHORIZED)
+                return Response({
+                    'token': token[0].key,
+                    'user': user_info,
+                })
+            else:
+                return Response(
+                    {
+                        'detail': strings.UNAUTHORIZED
+                    }, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            return Response({'detail': strings.INVALID_CREDENTIALS}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class LogoutView(views.APIView):
