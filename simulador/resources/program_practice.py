@@ -195,6 +195,12 @@ def get_results_by_user_id(user_id=False, program_practice_id=False):
 
 
 class ProgramPracticeViewSet(viewsets.ModelViewSet):
+    """
+    Para obtener practicas por usuario, ingresar:
+
+    _/ProgramPractice/current/?user=**3**_
+
+    """
     queryset = ProgramPractice.objects.all()
     serializer_class = ProgramPracticeSerializer
     pagination_class = BasePagination
