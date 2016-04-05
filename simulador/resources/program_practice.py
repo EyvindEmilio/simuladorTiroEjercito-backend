@@ -198,7 +198,7 @@ class ProgramPracticeViewSet(viewsets.ModelViewSet):
     """
     Para obtener practicas por usuario, ingresar:
 
-    _/ProgramPractice/current/?user=**3**_
+    [_/ProgramPractice/current/?user=**3**_](/ProgramPractice/current/?user=3)
 
     """
     queryset = ProgramPractice.objects.all()

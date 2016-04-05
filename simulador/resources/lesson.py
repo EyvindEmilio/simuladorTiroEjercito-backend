@@ -41,3 +41,10 @@ class LessonViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
     filter_fields = ('name',)
     search_fields = ('$name',)
+
+    def get_serializer_class(self):
+        query_params = self.request.query_params
+        if 'is_complete_serializer' in query_params and query_params['is_complete_serializer'] == '1':
+            return LessonDetailSerializer
+        else:
+            return LessonSerializer
