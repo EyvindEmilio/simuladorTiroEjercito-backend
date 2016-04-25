@@ -123,7 +123,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 def GET_API_URL(request, dir=""):
     # return "http://127.0.0.1:900"
-
     if request.is_secure():
         return "https://%s%s" % (request.META['HTTP_HOST'], dir,)
     elif dir is None or dir is "":
@@ -143,12 +142,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+
         # 'oauth2_provider.ext.rest_framework.OAuth2Authentication',
         # 'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination'
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
     # 'DEFAULT_PERMISSION_CLASSES': (
     #     'rest_framework.permissions.IsAuthenticated',
     # ),

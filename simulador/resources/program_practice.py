@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from simulador.pagination import BasePagination
 from simulador.resources.account import Account, AccountDetailSerializer
 from simulador.resources.lesson import LessonDetailSerializer, Lesson
+from simuladorTiroEjercitoBackend import settings
 
 
 class ProgramPractice(models.Model):
@@ -224,6 +225,15 @@ class ProgramPracticeViewSet(viewsets.ModelViewSet):
             today = datetime.datetime.today()
             objects_practice = ProgramPractice.objects.filter(end__gte=today, start__lte=today, list__id=user)
             practice_data = ProgramPracticeDetailSerializer(objects_practice, many=True)
+            for practice in practice_data.data:
+                del practice["list"]
+                for lesson in practice['lesson']:
+                    lesson['image'] = settings.GET_API_URL(self.request, lesson['image'])
+                    for type_of_fire in lesson['type_of_fire']:
+                        type_of_fire['position']['image'] = settings.GET_API_URL(self.request,
+                                                                                 type_of_fire['position']['image'])
+                        type_of_fire['target']['image'] = settings.GET_API_URL(self.request,
+                                                                               type_of_fire['target']['image'])
             return Response({
                 'practice': practice_data.data
             })

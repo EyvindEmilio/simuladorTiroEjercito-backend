@@ -224,6 +224,16 @@
     }
   },
   {
+    "model": "simulador.MilitaryGrade",
+    "pk": 10,
+    "fields": {
+      "name": "Estudiante",
+      "short": "Est",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
     "model": "simulador.Account",
     "pk": 1,
     "fields": {
@@ -242,7 +252,7 @@
       "last_name": "Tinini Coaquira",
       "date_of_birth": "1993-03-12",
       "city": 1,
-      "military_grade": 1,
+      "military_grade": 10,
       "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
@@ -267,7 +277,7 @@
       "last_name": "Gutierez Guarachi",
       "date_of_birth": "1993-03-12",
       "city": 1,
-      "military_grade": 2,
+      "military_grade": 10,
       "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
@@ -781,7 +791,7 @@
     "model": "simulador.TypeOfFire",
     "pk": 1,
     "fields": {
-      "name": "Fuego Lento",
+      "name": "Fuego Lento 'A'",
       "position": 1,
       "distance": 15,
       "selector": "",
@@ -800,7 +810,7 @@
     "model": "simulador.TypeOfFire",
     "pk": 2,
     "fields": {
-      "name": "Fuego Rapido",
+      "name": "Fuego Rapido 'A'",
       "position": 4,
       "distance": 25,
       "selector": "",
@@ -819,7 +829,7 @@
     "model": "simulador.TypeOfFire",
     "pk": 3,
     "fields": {
-      "name": "Fuego lento",
+      "name": "Fuego Lento 'B'",
       "position": 3,
       "distance": 15,
       "selector": "",
@@ -838,7 +848,7 @@
     "model": "simulador.TypeOfFire",
     "pk": 4,
     "fields": {
-      "name": "Fuego Rapido",
+      "name": "Fuego Rapido 'B'",
       "position": 3,
       "distance": 25,
       "selector": "",
@@ -857,7 +867,7 @@
     "model": "simulador.TypeOfFire",
     "pk": 5,
     "fields": {
-      "name": "Fuego rapido",
+      "name": "Fuego rapido 'C'",
       "position": 1,
       "distance": 10,
       "selector": "",
@@ -876,7 +886,7 @@
     "model": "simulador.TypeOfFire",
     "pk": 6,
     "fields": {
-      "name": "Fuego rapido",
+      "name": "Fuego rapido 'D'",
       "position": 1,
       "distance": 15,
       "selector": "",
@@ -895,7 +905,7 @@
     "model": "simulador.TypeOfFire",
     "pk": 7,
     "fields": {
-      "name": "Fuego rapido",
+      "name": "Fuego rapido 'E'",
       "position": 1,
       "distance": 25,
       "selector": "",
