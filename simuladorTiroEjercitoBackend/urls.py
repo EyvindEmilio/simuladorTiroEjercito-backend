@@ -24,6 +24,7 @@ from simulador.resources.account import LogoutView
 from simulador.resources.battalion import BattalionViewSet
 from simulador.resources.city import CityViewSet
 from simulador.resources.company import CompanyViewSet
+from simulador.resources.custom_practices import CustomPractices, CustomPracticesViewSet
 from simulador.resources.image_repository import ImageRepository, ImageRepositoryViewSet
 from simulador.resources.logs import LogsView, LogsViewSet
 from simulador.resources.position import PositionViewSet
@@ -50,6 +51,7 @@ router.register(r'Account', AccountViewSet)
 router.register(r'Battalion', BattalionViewSet)
 router.register(r'City', CityViewSet)
 router.register(r'Company', CompanyViewSet)
+router.register(r'CustomPractices', CustomPracticesViewSet)
 router.register(r'Grade', GradeViewSet)
 router.register(r'Lesson', LessonViewSet)
 router.register(r'MilitaryGrade', MilitaryGradeViewSet)

@@ -8,6 +8,7 @@ import resources.people
 import resources.regiment
 import resources.battalion
 import resources.company
+import resources.custom_practices
 import resources.squadron
 import resources.military_grade
 import resources.target_resource
@@ -27,6 +28,8 @@ import resources.report_repository
 
 simple_audit.register(resources.account.Account,
                       resources.city.City,
+                      resources.custom_practices.CustomPractices,
+                      resources.company.Company,
                       resources.grade.Grade,
                       resources.military_grade.MilitaryGrade,
                       resources.target_resource.Target,
@@ -40,5 +43,4 @@ simple_audit.register(resources.account.Account,
                       resources.results.Results,
                       resources.results_zone.ResultsZone,
                       resources.squadron.Squadron,
-                      resources.company.Company,
                       )
