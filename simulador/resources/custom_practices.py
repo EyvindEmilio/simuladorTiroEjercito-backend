@@ -99,9 +99,10 @@ class CustomPracticesViewSet(viewsets.ModelViewSet):
         response = {}
         is_complete = False
         if 'results' in data:
+            d = json.dumps(data['results'], ensure_ascii=False, encoding='utf8')
             # noinspection PyBroadException
             try:
-                results = json.loads(data['results'])
+                results = json.loads(d, encoding='utf-8')
                 if type(results) in (tuple, list):
                     list_serialized = []
                     is_all_valid = True
@@ -140,19 +141,19 @@ class CustomPracticesViewSet(viewsets.ModelViewSet):
                                 for id_result_zone in list_id_zones:
                                     ResultsZone.objects.filter(id=id_result_zone).delete()
 
-                            if is_complete:
-                                data_practice = {'results': list_id, 'practicing': request.data['practicing']}
-                                practice_serial = CustomPracticesSerializer(data=data_practice)
-                                if practice_serial.is_valid():
-                                    practice_serial.save()
-                                    response = practice_serial.data
-                                else:
-                                    for id_result in list_id:
-                                        Results.objects.filter(id=id_result).delete()
-                                    response = practice_serial.errors
+                        if is_complete:
+                            data_practice = {'results': list_id, 'practicing': request.data['practicing']}
+                            practice_serial = CustomPracticesSerializer(data=data_practice)
+                            if practice_serial.is_valid():
+                                practice_serial.save()
+                                response = practice_serial.data
                             else:
                                 for id_result in list_id:
                                     Results.objects.filter(id=id_result).delete()
+                                response = practice_serial.errors
+                        else:
+                            for id_result in list_id:
+                                Results.objects.filter(id=id_result).delete()
 
                     except StandardError as err:
                         response = {"results_zone": "El formato Json debe ser array", "fd": repr(err)}

@@ -24,8 +24,8 @@ from simulador.resources.account import LogoutView
 from simulador.resources.battalion import BattalionViewSet
 from simulador.resources.city import CityViewSet
 from simulador.resources.company import CompanyViewSet
-from simulador.resources.custom_practices import CustomPractices, CustomPracticesViewSet
-from simulador.resources.image_repository import ImageRepository, ImageRepositoryViewSet
+from simulador.resources.custom_practices import CustomPracticesViewSet
+from simulador.resources.image_repository import ImageRepositoryViewSet
 from simulador.resources.logs import LogsView, LogsViewSet
 from simulador.resources.position import PositionViewSet
 from simulador.resources.practices import PracticesViewSet
