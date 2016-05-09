@@ -31,5 +31,5 @@ class SquadronViewSet(viewsets.ModelViewSet):
     pagination_class = BasePagination
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
     filter_fields = ('name',)
-    search_fields = ('$name',)
+    search_fields = ('$name', '$company__name', '$list__first_name', '$list__last_name', '$list__ci')
     # permission_classes = (IsAuthenticated,)

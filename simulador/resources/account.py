@@ -177,8 +177,8 @@ class AccountViewSet(viewsets.ModelViewSet):
     pagination_class = BasePagination
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
     filter_fields = (
-        'first_name', 'last_name', 'is_admin', 'is_staff', 'is_superuser', 'user_type', 'id', 'is_active',)
-    search_fields = ('$first_name', '$last_name', '$ci')
+        'first_name', 'last_name', 'is_admin', 'is_superuser', 'user_type', 'id', 'is_active', 'ci',)
+    search_fields = ('$first_name', '$last_name', '$ci', 'military_grade__name',)
 
     def get_serializer_class(self):
         query_params = self.request.query_params

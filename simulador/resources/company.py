@@ -31,4 +31,4 @@ class CompanyViewSet(viewsets.ModelViewSet):
     pagination_class = BasePagination
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
     filter_fields = ('name', 'instructor')
-    search_fields = ('$name', '$instructor')
+    search_fields = ('$name', '$instructor__ci', '$instructor__first_name', '$instructor__last_name', '$description',)
