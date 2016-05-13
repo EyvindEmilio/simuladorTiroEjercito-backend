@@ -64,7 +64,7 @@ class Practices(models.Model):
         return "%s" % self.id
 
     class Meta:
-        ordering = ['created_at']
+        ordering = ['-created_at']
 
 
 class PracticesSerializer(serializers.ModelSerializer):

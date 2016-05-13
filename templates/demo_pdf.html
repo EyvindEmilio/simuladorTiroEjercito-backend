@@ -1,29 +1,33 @@
-{% extends "easy_pdf/base.html" %}
-{% load  pdf_filters %}
-{% load  staticfiles %}
+{% load static %}
+{% load staticfiles %}
+{% load pdf_filters %}
 {% block content %}
     <div id="content">
 
         <table class="full-width">
             <tr>
-                <td class="left"><img src="{{ logo_ejercito_url | get64 }}" width="80" height="80"></td>
+                <td class="left"><img src="http://localhost:9000/images/logo_ejercito.png" width="80" height="80"></td>
                 <td class="center">
                     <h1 class="pT30">SIMULADOR DE PRÁCTICA DE TIRO</h1>
                     <h2><i>"Colegio Militar del Ejército"</i></h2>
                 </td>
-                <td class="right"><img src="{{ logo_bolivia_url | get64 }}" width="85" height="75"></td>
+                <td class="right">
+                    <img src="{{ "static/logo_ejercito.png" | get_path:request }}" width="85" height="75">
+                </td>
             </tr>
         </table>
 
         <hr>
         <img src="{{ binaryss }}" style="width: 400px">
-        {#        <img src="{{ 'http://chart.apis.google.com/chart?chtt=Pie+Chart&chts=000000,12&chs=300x150&chf=bg,s,ffffff&cht=p3&chd=t:100.00&chl=Lhjabel+1&chco=0000ff'|get64 }}">#}
-        <table cellpadding="1" border="1" cellspacing="0" width="50%" class="mT50">
+        <img src="{{ 'http://chart.apis.google.com/chart?chtt=Pie+Chart&chts=000000,12&chs=300x150&chf=bg,s,ffffff&cht=p3&chd=t:100.00&chl=Lhjabel+1&chco=0000ff'|get64 }}">
+        <table cellpadding="1" border="1">
             <tbody>
             <tr>
-                <td>aaa</td>
-                <td>bbb</td>
-                <td>cc</td>
+                <td style=" white-space: nowrap;">aaa</td>
+                <td style=" white-space: nowrap;">bdbb</td>
+                <td style=" white-space: nowrap;">
+                    ccdffffffddddddddddddddddddddddddddddddddddddddddddfffffffffffffffffffffffffffffff
+                </td>
             </tr>
             </tbody>
         </table>

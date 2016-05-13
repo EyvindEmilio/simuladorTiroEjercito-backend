@@ -1,0 +1,261 @@
+{% extends "easy_pdf/base.html" %}
+{% load  static %}
+{% load  pdf_filters %}
+{% load  staticfiles %}
+{% block content %}
+    <div id="content">
+        <table class="full-width">
+            <tr>
+                <td class="left">
+                    <img src="{{ "/static/escudo_bolivia.png" | get_path:request }}" width="85" height="75">
+                </td>
+                <td class="center" style="width: 90%">
+                    <h1 class="pT30">SIMULADOR DE PRÁCTICA DE TIRO</h1>
+                    <h2><i>"Colegio Militar del Ejército"</i></h2>
+                </td>
+                <td class="right">
+                    <img src="{{ "/static/logo_ejercito.png" | get_path:request }}" width="80" height="80">
+                </td>
+            </tr>
+        </table>
+
+        <hr style="margin-bottom: 2px">
+        <hr style="margin-top: 2px">
+        <h1 class="center mT30" style="text-decoration: underline">Reporte de práctica de tiro</h1>
+        <h3 class="mV1">OFICIAL DE
+            TIRO: {{ program_practice.instructor.military_grade.short }}. {{ program_practice.instructor.first_name }} {{ program_practice.instructor.last_name }}
+        </h3>
+        <h3 class="mV1">FECHA DE INICIO: <i>{{ program_practice.start|to_datetime }}</i></h3>
+        <h3 class="mV1">FECHA DE FINALIZACIÓN: <i>{{ program_practice.end|to_datetime }}</i></h3>
+        <hr>
+        {% for lesson_type_fire in data.0.results %}
+            <h3 class="center mV1"><b>Lección de tiro: </b>{{ lesson_type_fire.lesson.name }}</h3>
+            <h3 class="center mV1"><b>Tipo de fuego: </b>{{ lesson_type_fire.type_of_fire.name }}<br></h3>
+
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <b>Distancia: </b>{{ lesson_type_fire.type_of_fire.distance }} mts<br>
+                            <b>Blanco: </b>{{ lesson_type_fire.type_of_fire.target.name }}<br>
+                            <b>Posición: </b>{{ lesson_type_fire.type_of_fire.position.name }}<br>
+                        </td>
+                        <td>
+                            <b>Cartuchos: </b>{{ lesson_type_fire.type_of_fire.cartridges }}<br>
+                            <b>Tiempo límite: </b>{{ lesson_type_fire.type_of_fire.max_time }} milisegundos <br>
+                            <b>Puntuación: </b>{{ lesson_type_fire.type_of_fire.min_score }} pts
+                            sobre {{ lesson_type_fire.type_of_fire.max_score }} pts<br>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <table class="full-width mT20 centred" border="1" cellspacing="0" cellpadding="5">
+                <thead>
+                <tr>
+                    <th width="5%">Nro</th>
+                    <th width="15%">Grado</th>
+                    <th width="30%">Nombres y Apellidos</th>
+                    <th width="12%">Arma</th>
+                    <th width="20%">Impactos</th>
+                    <th width="8%">Total puntos</th>
+                    <th width="10%">Estado</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for result in data %}
+                    <tr style="padding-top: 7px">
+                        <td class="center">{{ forloop.counter }}</td>
+                        <td>{{ result.practicing.military_grade.name }}</td>
+                        <td>{{ result.practicing.first_name }} {{ result.practicing.last_name }}</td>
+                        <td>Pistola 9mm</td>
+                        <td class="center">
+                            {% for item in result.results %}
+                                {% if lesson_type_fire.type_of_fire.id == item.type_of_fire.id and lesson_type_fire.lesson.id == item.lesson.id %}
+                                    {% for impact in item.results_zone %}
+                                        {{ impact.score }}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td class="center">
+                            {% for item in result.results %}
+                                {% if lesson_type_fire.type_of_fire.id == item.type_of_fire.id and lesson_type_fire.lesson.id == item.lesson.id %}
+                                    {{ item.score }} pts
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        {% for item in result.results %}
+                            {% if lesson_type_fire.type_of_fire.id == item.type_of_fire.id and lesson_type_fire.lesson.id == item.lesson.id %}
+                                <td class="center"
+                                    style="color: {% if item.score < item.min_score %} #FEAD92 {% else %}#1abc9c;{% endif %}">
+                                    {% if item.score < item.min_score %}
+                                        REPROBADO
+                                    {% else %}
+                                        APROBADO
+                                    {% endif %}
+                                </td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div style="page-break-before:always">&nbsp;</div>
+        {% endfor %}
+        <div>
+            <h2 class="center" style="text-decoration: underline">Practicantes sin realizar la práctica</h2>
+            <hr>
+            {% if list_not_practice|length > 0 %}
+                <i>** Los practicantes que no realizaron la práctica de tiro el resultado de su evaluación es de
+                    "REPROBADO"</i>
+                <table class="full-width mT20 centred" border="1" cellspacing="0" cellpadding="5">
+                    <thead>
+                    <tr>
+                        <th width="10%">Nro</th>
+                        <th width="20%">Grado</th>
+                        <th width="30%">Apellidos y nombres</th>
+                        <th width="10%">Celular</th>
+                        <th width="30%">Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user_not_practice in list_not_practice %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ user_not_practice.military_grade.name }}</td>
+                            <td>{{ user_not_practice.last_name }} {{ user_not_practice.first_name }}</td>
+                            <td class="center">{{ user_not_practice.phone_number }}</td>
+                            <td class="center" style="color: #FEAD92">REPROBADO</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="center">
+                    <i>-- Todos realizaron la práctica de tiro--</i>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div id="page-footer">
+        {% block page_foot %}
+            <hr>
+            <h5 class="center mV1">Escuela Militar de ingeniería</h5>
+            <div class="center mV1">
+                <!--suppress XmlUnboundNsPrefix -->
+                <pdf:pagenumber/>
+            </div>
+        {% endblock %}
+    </div>
+    <style>
+        @page {
+            size: {{ pagesize|default:"Letter" }};
+            margin-left: 1.5cm;
+            margin-right: 1.5cm;
+            margin-top: 1.5cm;
+            margin-bottom: 2cm;
+            @frame header {
+            -pdf-frame-content: page-header;
+            margin-top: 0.7cm;
+            margin-right: 2mm;
+            margin-bottom: 0cm;
+            margin-left: 1.2cm;
+        }
+
+        @frame footer {
+        -pdf-frame-content:page-footer;
+        bottom: 0.5cm;
+        margin-left: 1cm;
+        margin-right: 1cm;
+        height: 1.3cm;
+        }
+        }
+
+        tr:nth-of-type(odd) {
+            background-color: #f4f379;
+        }
+
+        td {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .mV1 {
+            margin-top: 1px;
+            margin-bottom: 1px;
+        }
+
+        .mT0 {
+            margin-top: 10px !important;
+        }
+
+        .mT10 {
+            margin-top: 10px;
+        }
+
+        .mT30 {
+            margin-top: 20px;
+        }
+
+        .mT30 {
+            margin-top: 30px;
+        }
+
+        .mT50 {
+            margin-top: 50px;
+        }
+
+        .mT100 {
+            margin-top: 100px;
+        }
+
+        .pT10 {
+            padding-top: 10px;
+        }
+
+        .pT15 {
+            padding-top: 20px;
+        }
+
+        .pT30 {
+            padding-top: 30px;
+        }
+
+        .pT50 {
+            padding-top: 50px;
+        }
+
+        .pT100 {
+            padding-top: 100px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .centred {
+            margin: 0 auto;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        .pull_left {
+            float: left;
+        }
+
+        .pull_right {
+            float: right;
+        }
+    </style>
+{% endblock %}
+

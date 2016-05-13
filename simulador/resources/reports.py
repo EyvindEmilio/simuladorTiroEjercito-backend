@@ -1,113 +1,77 @@
-import base64
+# -*- coding: UTF-8 -*-
+import StringIO
 
-from django.shortcuts import render_to_response
+from django.http import HttpResponse
+from django.template import RequestContext
+from django.template.loader import render_to_string
 from django.views.generic import View
 from easy_pdf.views import PDFTemplateView
 from reportlab.graphics.charts.piecharts import Pie
 from reportlab.graphics.shapes import Drawing, String
 from reportlab.lib.colors import PCMYKColor
-from simulador.resources.account import AccountSerializer
+from simulador.resources.account import AccountSerializer, Account
 from simulador.resources.image_repository import ImageRepository, ImageRepositorySerializer
-from simulador.resources.lesson import LessonSerializer
-from simulador.resources.military_grade import MilitaryGradeSerializer
-from simulador.resources.position import PositionSerializer
-from simulador.resources.target_resource import TargetSerializer
-from simulador.templatetags.pdf_filters import get64
+from simulador.resources.lesson import LessonSerializer, Lesson
+from simulador.resources.military_grade import MilitaryGradeSerializer, MilitaryGrade
+from simulador.resources.position import PositionSerializer, Position
+from simulador.resources.target_resource import TargetSerializer, Target
 from simuladorTiroEjercitoBackend.settings import GET_API_URL
+from xhtml2pdf import pisa
 
-ReportsViews = {
-    "target": {"name": "Reporte de tipos de blancos", "Serializer": TargetSerializer,
-               "params": (('image', 'Imagen', 'image'),
-                          ('name', 'Nombre', 'text'),
-                          ('description', 'Descripcion', 'text'),
-                          ('zones', 'Numero de zonas', 'text'),
-                          ('updated_at', 'Ultima modificacion', 'datetime'),
-                          )},
-    "position": {"name": "Reporte de posiciones de tiro", "Serializer": PositionSerializer,
-                 "params": (('image', 'Imagen', 'image'),
-                            ('name', 'Posicion', 'text'),
-                            ('description', 'Descripcion', 'text'),
-                            ('updated_at', 'Ultima modificacion', 'datetime'),
-                            )},
-    "lesson": {"name": "Reporte de lecciones de tiro", "Serializer": LessonSerializer,
-               "params": (('image', 'Imagen', 'image'),
-                          ('name', 'Nombre', 'text'),
-                          ('description', 'Descripcion', 'text'),
-                          ('updated_at', 'Ultima modificacion', 'datetime'),
-                          )},
-    "military_grade": {"name": "Reporte de grados militares", "Serializer": MilitaryGradeSerializer,
-                       "params": (('name', 'Nombre', 'text'),
-                                  ('short', 'Abreviatura', 'text'),
-                                  ('updated_at', 'Ultima modificacion', 'datetime'),
-                                  )},
-    "account": {"name": "Reporte de cuentas de usuarios", "Serializer": AccountSerializer,
-                "params": (
-                    # ('image', 'Perfil', 'image'),
-                    ('first_name', 'Nombres', 'text'),
-                    ('last_name', 'Apellidos', 'text'),
-                    ('ci', 'Carnet', 'text'),
-                    ('email', 'Correo', 'text'),
-                    ('updated_at', 'Ultima modificacion', 'datetime'),
-                )}
+ReportModels = {
+    "lesson": {
+        "title": "Lista de lecciones de tiro",
+        "data": LessonSerializer(Lesson.objects.all(), many=True).data,
+        "fields": (
+            {"label": "Imagen", "name": "image", "width": "15%", "type": "image"},
+            {"label": "Nombre", "name": "name", "width": "30%", "type": "text"},
+            {"label": "Descripción", "name": "description", "width": "35%", "type": "text"},
+            {"label": "Última modificación", "name": "updated_at", "width": "20%", "type": "datetime"}
+        )
+    },
+    "target": {
+        "title": "Lista de tipos de blancos",
+        "data": TargetSerializer(Target.objects.all(), many=True).data,
+        "fields": (
+            {"label": "Blanco", "name": "image", "width": "20%", "type": "image"},
+            {"label": "Nombre del blanco", "name": "name", "width": "30%", "type": "text"},
+            {"label": "Numero de zonas", "name": "zones", "width": "25%", "type": "text", "class": "center"},
+            {"label": "Última modificación", "name": "updated_at", "width": "25%", "type": "datetime"}
+        )
+    },
+    "position": {
+        "title": "Lista de posiciones del tirador",
+        "data": PositionSerializer(Position.objects.all(), many=True).data,
+        "fields": (
+            {"label": "Posición", "name": "image", "width": "15%", "type": "image"},
+            {"label": "Nombre de posición", "name": "name", "width": "35%", "type": "text"},
+            {"label": "Descripción", "name": "description", "width": "25%", "type": "text"},
+            {"label": "Última modificación", "name": "updated_at", "width": "25%", "type": "datetime"}
+        )
+    },
+    "military_grade": {
+        "title": "Grados militares registrados",
+        "data": MilitaryGradeSerializer(MilitaryGrade.objects.all(), many=True).data,
+        "show_index": True,
+        "fields": (
+            {"label": "Nombre", "name": "name", "width": "30%", "type": "text"},
+            {"label": "Abreviatura", "name": "short", "width": "25%", "type": "text"},
+            {"label": "Última modificación", "name": "updated_at", "width": "35%", "type": "datetime"}
+        )
+    },
+    "account": {
+        "title": "Lista de usuarios registrados",
+        "data": AccountSerializer(Account.objects.all(), many=True).data,
+        "show_index": True,
+        "fields": (
+            {"label": "Nombres", "name": "first_name", "width": "15%", "type": "text"},
+            {"label": "Apellidos", "name": "last_name", "width": "15%", "type": "text"},
+            {"label": "Correo", "name": "email", "width": "30%", "type": "text"},
+            {"label": "Carnet", "name": "ci", "width": "10%", "type": "text"},
+            {"label": "Última modificación", "name": "updated_at", "width": "35%", "type": "datetime"}
+        )
+    }
 }
-
-
-def get_base_context(self):
-    context = {}
-    context["logo_ejercito_url"] = "%s" % GET_API_URL(self.request, "/static/logo_ejercito.png")
-    context["logo_bolivia_url"] = "%s" % GET_API_URL(self.request, "/static/escudo_bolivia.png")
-    context["base_url"] = "%s" % GET_API_URL(self.request)
-    return context
-
-
-def generate_table_render(self, data, params):
-    content = ()
-    for item in data:
-        row = ()
-        for param in params:
-            if param[2] == "image":
-                if item[param[0]] is not None and item[param[0]] != "":
-                    val = get64("%s%s" % (GET_API_URL(self.request), item[param[0]]))
-                else:
-                    val = None
-            else:
-                val = "%s" % item[param[0]]
-            row += ((param[2], val,),)
-        content += (row,)
-    return content
-
-
-# noinspection PyUnresolvedReferences,PyCallingNonCallable
-class BaseReportView(PDFTemplateView):
-    template_name = "list_report.html"
-
-    def get_context_data(self, **kwargs):
-        req = kwargs["rep"]
-        if req == "lesson":
-            ModelReport = ReportsViews["lesson"]
-        elif req == "target":
-            ModelReport = ReportsViews["target"]
-        elif req == "military_grade":
-            ModelReport = ReportsViews["military_grade"]
-        elif req == "account":
-            ModelReport = ReportsViews["account"]
-        else:
-            ModelReport = ReportsViews["position"]
-        Serializer = ModelReport["Serializer"]
-        Model = Serializer.Meta.model
-        params = ModelReport["params"]
-        values = Serializer(Model.objects.all(), many=True).data
-        logo_ejercito_url = "%s" % GET_API_URL(self.request, "/static/logo_ejercito.png")
-        logo_bolivia_url = "%s" % GET_API_URL(self.request, "/static/escudo_bolivia.png")
-        return super(BaseReportView, self).get_context_data(
-            pagesize="A4",
-            title=ModelReport["name"],
-            logo_ejercito_url=logo_ejercito_url,
-            logo_bolivia_url=logo_bolivia_url,
-            data=values,
-            params=params,
-            table=generate_table_render(self, values, params),
-            **kwargs)
 
 
 class BaseReport2View(PDFTemplateView):
@@ -121,7 +85,7 @@ class BaseReport2View(PDFTemplateView):
         obj_Data = ImageRepository.objects.filter(id=int(req))
         data_Serial = ImageRepositorySerializer(obj_Data, many=True).data
         data_Serial = data_Serial[0]['image']
-        logo_reporte = "%s" % GET_API_URL(self.request, "%s" %(data_Serial))
+        logo_reporte = "%s" % GET_API_URL(self.request, "%s" % (data_Serial))
         return super(BaseReport2View, self).get_context_data(
             pagesize="A4",
             title="Reporte de progreso en simulador",
@@ -150,37 +114,59 @@ class GetPieDrawing(Drawing):
             self.chart.slices[i].fillColor = color
 
 
-class HelloPDFView(PDFTemplateView):
-    template_name = "demo_pdf.html"
-
-    def get_context_data(self, **kwargs):
-        logo_ejercito_url = "%s" % GET_API_URL(self.request, "/static/logo_ejercito.png")
-        logo_bolivia_url = "%s" % GET_API_URL(self.request, "/static/escudo_bolivia.png")
-        data = {}
-        data["title"] = "EMI"
-        data["data"] = (("Valor1", 2), ("Valor2", 5), ("Valor3", 43), ("Valor4", 43))
-        d = GetPieDrawing(data)
-        # d.save(formats=["png"], outDir="static", fnRoot=None)
-        aa = d.asString('gif')
-        binaryStuff = "%s%s" % ("data:image/png;base64,", base64.b64encode(aa))
-
-        return super(HelloPDFView, self).get_context_data(
-            pagesize="A4",
-            title=data["title"],
-            logo_ejercito_url=logo_ejercito_url,
-            logo_bolivia_url=logo_bolivia_url,
-            binaryss=binaryStuff,
-            **kwargs
-        )
+class ReportsView(View):
+    def get(self, request, **kwargs):
+        model_name = kwargs['model']
+        context = {
+            "model": ReportModels[model_name]
+        }
+        file_data = render_to_string('report_model.html', context, RequestContext(request))
+        file = StringIO.StringIO()
+        pisa.CreatePDF(file_data, file)
+        file.seek(0)
+        response = HttpResponse(file.getvalue())
+        # response['Content-Disposition'] = 'attachment; filename=test.pdf'
+        response['Content-Disposition'] = 'filename=' + ReportModels[model_name]['title'] + '.pdf'
+        response['Content-Type'] = 'application/pdf'
+        return response
 
 
-class HelloView(View):
-    def get(self, request):
-        data = {}
-        data["title"] = "EMI"
-        data["data"] = (("Valor1", 2), ("Valor2", 5), ("Valor3", 43), ("Valor4", 43))
-        d = GetPieDrawing(data)
-        aa = d.asString('gif')
-        binaryStuff = "%s%s" % ("data:image/png;base64,", base64.b64encode(aa))
-        return render_to_response("demo_pdf.html", {"binaryss": binaryStuff})
+class ReportProgramPracticeView(View):
+    def get(self, request, **kwargs):
+        id_program_practice = kwargs['id_program_practice']
+        from simulador.resources.practices import Practices
+        practices_object_data = Practices.objects.filter(program_practice=id_program_practice)
+        from simulador.resources.practices import PracticesSerializer
+        practices_serial_data = PracticesSerializer(practices_object_data, many=True).data
+        from simulador.resources.program_practice import ProgramPractice
+        from simulador.resources.program_practice import ProgramPracticeDetailSerializer
+        practices_detail_serial_data = ProgramPracticeDetailSerializer(
+            ProgramPractice.objects.filter(id=id_program_practice),
+            many=True).data
 
+        list_result_practice = []
+        if len(practices_serial_data) > 0:
+            for practice_result in practices_serial_data:
+                from simulador.resources.program_practice import get_results_by_user_id
+                tmp = get_results_by_user_id(practice_result['practicing'], id_program_practice, True)
+                # tmp["practicing_image"] = GET_API_URL(request, tmp["practicing_image"])
+                list_result_practice.append(tmp)
+        list_not_practice = []
+        for list_user in practices_detail_serial_data[0]['list']:
+            if Practices.objects.filter(practicing=list_user['id']).count() == 0:
+                list_not_practice.append(list_user)
+
+        context = {
+            "program_practice": practices_detail_serial_data[0],
+            "data": list_result_practice,
+            "list_not_practice": list_not_practice
+        }
+        file_data = render_to_string('report_program_practice.html', context, RequestContext(request))
+        file = StringIO.StringIO()
+        pisa.CreatePDF(file_data, file)
+        file.seek(0)
+        response = HttpResponse(file.getvalue())
+        # response['Content-Disposition'] = 'attachment; filename=test.pdf'
+        response['Content-Disposition'] = 'filename=Reporte de practica.pdf'
+        response['Content-Type'] = 'application/pdf'
+        return response

@@ -1,10 +1,12 @@
 import json
 
 from django.db import models
-from rest_framework import viewsets, filters, serializers
+from rest_framework import viewsets, filters, serializers, status
+from rest_framework.decorators import detail_route
 from rest_framework.response import Response
 from simulador.pagination import BasePagination
 from simulador.resources.account import Account, AccountDetailSerializer
+from simulador.resources.program_practice import get_results_by_user
 from simulador.resources.results import Results, ResultsSerializer, ResultsDetailSerializer
 from simulador.resources.results_zone import ResultsZone, ResultsZoneSerializer
 
@@ -86,6 +88,25 @@ class CustomPracticesViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter,)
     filter_fields = ('id', 'practicing', 'date_practice',)
     search_fields = ('$id', 'practicing', 'date_practice',)
+
+    @detail_route()
+    def results(self, request, pk):
+        query_params = self.request.query_params
+        practices_serial_data = CustomPracticesSerializer(CustomPractices.objects.filter(id=pk), many=True).data
+        response = {}
+        response_status = status.HTTP_200_OK
+        if len(practices_serial_data) > 0:
+            list_result_practice = []
+            if 'practicing' in query_params:
+                response = get_results_by_user(query_params['practicing'], pk)
+            else:
+                for practice_result in practices_serial_data:
+                    list_result_practice.append(get_results_by_user(practice_result['practicing'], pk))
+                response = {'result': list_result_practice}
+        else:
+            response['detail'] = 'No se encontraron resultados'
+            response_status = status.HTTP_204_NO_CONTENT
+        return Response(response, response_status)
 
     def get_serializer_class(self):
         query_params = self.request.query_params

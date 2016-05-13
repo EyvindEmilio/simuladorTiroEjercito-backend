@@ -1,7 +1,10 @@
-from django import template
-import urllib, cStringIO, base64
+import base64
+import cStringIO
+import urllib
 
+from django import template
 from django.utils.datetime_safe import datetime
+from simuladorTiroEjercitoBackend.settings import GET_API_URL
 
 register = template.Library()
 
@@ -64,3 +67,26 @@ def get_type(list):
 @register.filter
 def get_value_from_name(item, list):
     return item[list[0]]
+
+
+# news
+@register.filter
+def get_path(url, request):
+    return GET_API_URL(request, url)
+
+
+@register.filter
+def index(object_array, key):
+    return object_array[key]
+
+
+@register.filter
+def to_datetime(date_text):
+    try:
+        now = datetime.strptime(date_text, '%Y-%m-%dT%H:%M:%SZ')
+    except:
+        try:
+            now = datetime.strptime(date_text, '%Y-%m-%dT%H:%M:%S.%fZ')
+        except:
+            now = datetime.strptime(date_text, '%Y-%m-%d')
+    return now

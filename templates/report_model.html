@@ -1,0 +1,181 @@
+{% extends "easy_pdf/base.html" %}
+{% load  static %}
+{% load  pdf_filters %}
+{% load  staticfiles %}
+{% block content %}
+    <div id="content">
+        <table class="full-width">
+            <tr>
+                <td class="left">
+                    <img src="{{ "/static/escudo_bolivia.png" | get_path:request }}" width="85" height="75">
+                </td>
+                <td class="center" style="width: 90%">
+                    <h1 class="pT30">SIMULADOR DE PRÁCTICA DE TIRO</h1>
+                    <h2><i>"Colegio Militar del Ejército"</i></h2>
+                </td>
+                <td class="right">
+                    <img src="{{ "/static/logo_ejercito.png" | get_path:request }}" width="80" height="80">
+                </td>
+            </tr>
+        </table>
+
+        <hr style="margin-bottom: 2px">
+        <hr style="margin-top: 2px">
+        <h1 class="center mT30" style="text-decoration: underline">{{ model.title }}</h1>
+        <p><b>Fecha: </b> {% now "d F Y H:i:s" %}</p>
+        <table class="full-width mT20 centred" border="1" cellspacing="0" cellpadding="5">
+            <thead>
+            <tr>
+                {% if model.show_index %}
+                    <th width="10%">Nro.</th>
+                {% endif %}
+                {% for field in model.fields %}
+                    <th style="width: {{ field.width }};padding-top: 6px"> {{ field.label }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for result in model.data %}
+                <tr>
+                    {% if model.show_index %}
+                        <td class="center">{{ forloop.counter }}</td>
+                    {% endif %}
+                    {% for field in model.fields %}
+                        {% if field.type == "image" %}
+                            <td class="{{ field.class }}" style="{{ field.styles }}">
+                                <img src="{{ result|index:field.name|get_path:request }}">
+                            </td>
+                        {% elif field.type == "datetime" %}
+                            <td class="{{ field.class }}" style="{{ field.styles }}">
+                                {{ result|index:field.name |to_datetime }}
+                            </td>
+                        {% else %}
+                            <td class="{{ field.class }}" style="{{ field.styles }}">
+                                {{ result|index:field.name }}
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    <div id="page-footer">
+        {% block page_foot %}
+            <hr>
+            <h5 class="center mV1">Escuela Militar de ingeniería</h5>
+            <div class="center mV1">
+                <!--suppress XmlUnboundNsPrefix -->
+                <pdf:pagenumber/>
+            </div>
+        {% endblock %}
+    </div>
+    <style>
+        @page {
+            size: {{ pagesize|default:"Letter" }};
+            margin-left: 1.5cm;
+            margin-right: 1.5cm;
+            margin-top: 1.5cm;
+            margin-bottom: 2cm;
+            @frame header {
+            -pdf-frame-content: page-header;
+            margin-top: 0.7cm;
+            margin-right: 2mm;
+            margin-bottom: 0cm;
+            margin-left: 1.2cm;
+        }
+
+        @frame footer {
+        -pdf-frame-content:page-footer;
+        bottom: 0.5cm;
+        margin-left: 1cm;
+        margin-right: 1cm;
+        height: 1.3cm;
+        }
+        }
+
+        tr:nth-of-type(odd) {
+            background-color: #f4f379;
+        }
+
+        td {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .mV1 {
+            margin-top: 1px;
+            margin-bottom: 1px;
+        }
+
+        .mT10 {
+            margin-top: 10px;
+        }
+
+        .mT30 {
+            margin-top: 20px;
+        }
+
+        .mT30 {
+            margin-top: 30px;
+        }
+
+        .mT50 {
+            margin-top: 50px;
+        }
+
+        .mT100 {
+            margin-top: 100px;
+        }
+
+        .pT10 {
+            padding-top: 10px;
+        }
+
+        .pT15 {
+            padding-top: 20px;
+        }
+
+        .pT30 {
+            padding-top: 30px;
+        }
+
+        .pT50 {
+            padding-top: 50px;
+        }
+
+        .pT100 {
+            padding-top: 100px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .centred {
+            margin: 0 auto;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        .pull_left {
+            float: left;
+        }
+
+        .pull_right {
+            float: right;
+        }
+    </style>
+{% endblock %}
+
