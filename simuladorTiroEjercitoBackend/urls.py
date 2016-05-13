@@ -36,7 +36,8 @@ from simulador.resources.practices import PracticesViewSet
 from simulador.resources.program_practice import ProgramPracticeViewSet
 from simulador.resources.progress import ProgressViewSet
 from simulador.resources.regiment import RegimentViewSet
-from simulador.resources.reports import BaseReport2View, ReportsView, ReportProgramPracticeView
+from simulador.resources.reports import BaseReport2View, ReportsView, ReportProgramPracticeView, \
+    ReportCustomProgramPracticeView
 from simulador.resources.reset_password import ResetPasswordViewSet
 from simulador.resources.results import ResultsViewSet
 from simulador.resources.results_zone import ResultsZoneViewSet
@@ -76,6 +77,7 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^report/(?P<model>[a-zA-Z0-9_.-]+)/$', ReportsView.as_view()),
     url(r'^reportProgramPractice/(?P<id_program_practice>[a-zA-Z0-9_.-]+)/$', ReportProgramPracticeView.as_view()),
+    url(r'^reportCustomProgramPractice/(?P<id_custom_practice>[a-zA-Z0-9_.-]+)/$', ReportCustomProgramPracticeView.as_view()),
     url(r'^view_image/(?P<rep>[a-zA-Z0-9_.-]+)/$', BaseReport2View.as_view()),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^docs/', include('rest_framework_swagger.urls')),

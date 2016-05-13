@@ -67,7 +67,7 @@ def get_sum(list_array, label):
     return sum_
 
 
-def get_results_by_user(user_id=False, custom_practice_id=False):
+def get_results_by_user(user_id=False, custom_practice_id=False, complete=False):
     from simulador.resources.custom_practices import CustomPractices
     from simulador.resources.custom_practices import CustomPracticesDetailSerializer
     if id is not False:
@@ -75,7 +75,7 @@ def get_results_by_user(user_id=False, custom_practice_id=False):
         practices_serial_data = CustomPracticesDetailSerializer(practices_object_data, many=True).data
         results_by_practice = {}
         if len(practices_serial_data) > 0:
-            results_by_practice = convert_results_data(practices_serial_data)
+            results_by_practice = convert_results_data(practices_serial_data, complete)
         return results_by_practice
     else:
         return []

@@ -10,6 +10,7 @@ from reportlab.graphics.charts.piecharts import Pie
 from reportlab.graphics.shapes import Drawing, String
 from reportlab.lib.colors import PCMYKColor
 from simulador.resources.account import AccountSerializer, Account
+from simulador.resources.custom_practices import CustomPractices
 from simulador.resources.image_repository import ImageRepository, ImageRepositorySerializer
 from simulador.resources.lesson import LessonSerializer, Lesson
 from simulador.resources.military_grade import MilitaryGradeSerializer, MilitaryGrade
@@ -134,8 +135,21 @@ class ReportsView(View):
 class ReportProgramPracticeView(View):
     def get(self, request, **kwargs):
         id_program_practice = kwargs['id_program_practice']
+        query_params = request.GET
+        practicing = False
+        is_custom = False
+        if query_params.get('practicing') is not None:
+            practicing = int(query_params.get('practicing'))
+
+        if query_params.get('is_custom') is not None:
+            is_custom = True
+
         from simulador.resources.practices import Practices
-        practices_object_data = Practices.objects.filter(program_practice=id_program_practice)
+        if practicing is False:
+            practices_object_data = Practices.objects.filter(program_practice=id_program_practice)
+        else:
+            practices_object_data = Practices.objects.filter(program_practice=id_program_practice,
+                                                             practicing=practicing)
         from simulador.resources.practices import PracticesSerializer
         practices_serial_data = PracticesSerializer(practices_object_data, many=True).data
         from simulador.resources.program_practice import ProgramPractice
@@ -149,7 +163,6 @@ class ReportProgramPracticeView(View):
             for practice_result in practices_serial_data:
                 from simulador.resources.program_practice import get_results_by_user_id
                 tmp = get_results_by_user_id(practice_result['practicing'], id_program_practice, True)
-                # tmp["practicing_image"] = GET_API_URL(request, tmp["practicing_image"])
                 list_result_practice.append(tmp)
         list_not_practice = []
         for list_user in practices_detail_serial_data[0]['list']:
@@ -159,7 +172,44 @@ class ReportProgramPracticeView(View):
         context = {
             "program_practice": practices_detail_serial_data[0],
             "data": list_result_practice,
-            "list_not_practice": list_not_practice
+            "list_not_practice": list_not_practice,
+            "is_total": not practicing
+        }
+        file_data = render_to_string('report_program_practice.html', context, RequestContext(request))
+        file = StringIO.StringIO()
+        pisa.CreatePDF(file_data, file)
+        file.seek(0)
+        response = HttpResponse(file.getvalue())
+        # response['Content-Disposition'] = 'attachment; filename=test.pdf'
+        response['Content-Disposition'] = 'filename=Reporte de practica.pdf'
+        response['Content-Type'] = 'application/pdf'
+        return response
+
+
+class ReportCustomProgramPracticeView(View):
+    def get(self, request, **kwargs):
+        id_custom_practice = kwargs['id_custom_practice']
+        query_params = request.GET
+        practicing = False
+        if query_params.get('practicing') is not None:
+            practicing = int(query_params.get('practicing'))
+        practices_object_data = CustomPractices.objects.filter(practicing=practicing)
+        from simulador.resources.custom_practices import CustomPracticesSerializer
+        practices_serial_data = CustomPracticesSerializer(practices_object_data, many=True).data
+        list_result_practice = []
+        if len(practices_serial_data) > 0:
+            for practice_result in practices_serial_data:
+                from simulador.resources.program_practice import get_results_by_user
+                tmp = get_results_by_user(practice_result['practicing'], custom_practice_id=id_custom_practice,
+                                          complete=True)
+                list_result_practice.append(tmp)
+
+        context = {
+            "program_practice": practices_serial_data,
+            "data": list_result_practice,
+            "list_not_practice": [],
+            "is_total": True,
+            "is_custom": True
         }
         file_data = render_to_string('report_program_practice.html', context, RequestContext(request))
         file = StringIO.StringIO()

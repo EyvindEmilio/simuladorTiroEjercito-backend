@@ -22,11 +22,15 @@
         <hr style="margin-bottom: 2px">
         <hr style="margin-top: 2px">
         <h1 class="center mT30" style="text-decoration: underline">Reporte de práctica de tiro</h1>
-        <h3 class="mV1">OFICIAL DE
-            TIRO: {{ program_practice.instructor.military_grade.short }}. {{ program_practice.instructor.first_name }} {{ program_practice.instructor.last_name }}
-        </h3>
-        <h3 class="mV1">FECHA DE INICIO: <i>{{ program_practice.start|to_datetime }}</i></h3>
-        <h3 class="mV1">FECHA DE FINALIZACIÓN: <i>{{ program_practice.end|to_datetime }}</i></h3>
+        {% if is_custom %}
+            <h3 class="mV1">FECHA DE PRÁCTICA: <i>{{ program_practice.0.date_practice|to_datetime }}</i></h3>
+        {% else %}
+            <h3 class="mV1">OFICIAL DE
+                TIRO: {{ program_practice.instructor.military_grade.short }}. {{ program_practice.instructor.first_name }} {{ program_practice.instructor.last_name }}
+            </h3>
+            <h3 class="mV1">FECHA DE INICIO: <i>{{ program_practice.start|to_datetime }}</i></h3>
+            <h3 class="mV1">FECHA DE FINALIZACIÓN: <i>{{ program_practice.end|to_datetime }}</i></h3>
+        {% endif %}
         <hr>
         {% for lesson_type_fire in data.0.results %}
             <h3 class="center mV1"><b>Lección de tiro: </b>{{ lesson_type_fire.lesson.name }}</h3>
@@ -42,8 +46,8 @@
                         </td>
                         <td>
                             <b>Cartuchos: </b>{{ lesson_type_fire.type_of_fire.cartridges }}<br>
-                            <b>Tiempo límite: </b>{{ lesson_type_fire.type_of_fire.max_time }} milisegundos <br>
-                            <b>Puntuación: </b>{{ lesson_type_fire.type_of_fire.min_score }} pts
+                            <b>Tiempo máximo: </b>{{ lesson_type_fire.type_of_fire.max_time }} milisegundos <br>
+                            <b>Puntuación de aprobación: </b>{{ lesson_type_fire.type_of_fire.min_score }} pts
                             sobre {{ lesson_type_fire.type_of_fire.max_score }} pts<br>
                         </td>
                     </tr>
@@ -100,42 +104,50 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <div style="page-break-before:always">&nbsp;</div>
-        {% endfor %}
-        <div>
-            <h2 class="center" style="text-decoration: underline">Practicantes sin realizar la práctica</h2>
-            <hr>
-            {% if list_not_practice|length > 0 %}
-                <i>** Los practicantes que no realizaron la práctica de tiro el resultado de su evaluación es de
-                    "REPROBADO"</i>
-                <table class="full-width mT20 centred" border="1" cellspacing="0" cellpadding="5">
-                    <thead>
-                    <tr>
-                        <th width="10%">Nro</th>
-                        <th width="20%">Grado</th>
-                        <th width="30%">Apellidos y nombres</th>
-                        <th width="10%">Celular</th>
-                        <th width="30%">Estado</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for user_not_practice in list_not_practice %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ user_not_practice.military_grade.name }}</td>
-                            <td>{{ user_not_practice.last_name }} {{ user_not_practice.first_name }}</td>
-                            <td class="center">{{ user_not_practice.phone_number }}</td>
-                            <td class="center" style="color: #FEAD92">REPROBADO</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+            {% if is_total %}
+                <div style="page-break-before:always">&nbsp;</div>
             {% else %}
-                <div class="center">
-                    <i>-- Todos realizaron la práctica de tiro--</i>
-                </div>
+                <br>
+                <br>
+                <br>
             {% endif %}
-        </div>
+        {% endfor %}
+        {% if is_total %}
+            <div>
+                <h2 class="center" style="text-decoration: underline">Practicantes sin realizar la práctica</h2>
+                <hr>
+                {% if list_not_practice|length > 0 %}
+                    <i>** Los practicantes que no realizaron la práctica de tiro el resultado de su evaluación es de
+                        "REPROBADO"</i>
+                    <table class="full-width mT20 centred" border="1" cellspacing="0" cellpadding="5">
+                        <thead>
+                        <tr>
+                            <th width="10%">Nro</th>
+                            <th width="20%">Grado</th>
+                            <th width="30%">Apellidos y nombres</th>
+                            <th width="10%">Celular</th>
+                            <th width="30%">Estado</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user_not_practice in list_not_practice %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user_not_practice.military_grade.name }}</td>
+                                <td>{{ user_not_practice.last_name }} {{ user_not_practice.first_name }}</td>
+                                <td class="center">{{ user_not_practice.phone_number }}</td>
+                                <td class="center" style="color: #FEAD92">REPROBADO</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="center">
+                        <i>-- Todos realizaron la práctica de tiro--</i>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
     <div id="page-footer">
         {% block page_foot %}
