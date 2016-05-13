@@ -208,7 +208,7 @@ class ReportCustomProgramPracticeView(View):
             "program_practice": practices_serial_data,
             "data": list_result_practice,
             "list_not_practice": [],
-            "is_total": True,
+            "is_total": False,
             "is_custom": True
         }
         file_data = render_to_string('report_program_practice.html', context, RequestContext(request))
