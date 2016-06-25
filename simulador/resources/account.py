@@ -98,14 +98,14 @@ class Account(AbstractBaseUser):
     def is_admin_user(self):
         return self.is_admin
 
-    def delete(self):
-        if self.city:
-            self.city.delete()
-        if self.user_type:
-            self.user_type.delete()
-        if self.military_grade:
-            self.military_grade.delete()
-        super(Account, self).delete()
+    # def delete(self):
+    #     if self.city:
+    #         self.city.delete()
+    #     if self.user_type:
+    #         self.user_type.delete()
+    #     if self.military_grade:
+    #         self.military_grade.delete()
+    #     super(Account, self).delete()
 
 
 class AccountShortDetailSerializer(serializers.ModelSerializer):
