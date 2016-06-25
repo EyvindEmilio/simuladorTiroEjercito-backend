@@ -73,10 +73,23 @@ class Migration(migrations.Migration):
                 ('image', models.ImageField(null=True, upload_to=b'', blank=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('battalion', models.ForeignKey(to='simulador.Battalion')),
+                ('instructor', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'ordering': ['name'],
+            },
+        ),
+        migrations.CreateModel(
+            name='CustomPractices',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('date_practice', models.DateTimeField(auto_now_add=True)),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('practicing', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'ordering': ['created_at'],
             },
         ),
         migrations.CreateModel(
@@ -90,6 +103,17 @@ class Migration(migrations.Migration):
             ],
             options={
                 'ordering': ['name'],
+            },
+        ),
+        migrations.CreateModel(
+            name='ImageRepository',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=30, blank=True)),
+                ('image', models.ImageField(upload_to=b'ImageRepository/')),
+            ],
+            options={
+                'ordering': ['id'],
             },
         ),
         migrations.CreateModel(
@@ -132,7 +156,7 @@ class Migration(migrations.Migration):
                 ('image', models.ImageField(null=True, upload_to=b'Profile/', blank=True)),
                 ('created_at', models.DateField(auto_now_add=True)),
                 ('updated_at', models.DateField(auto_now=True)),
-                ('city', models.ForeignKey(blank=True, to='simulador.City', help_text=b'Id: Ejem. 1', null=True)),
+                ('city', models.ForeignKey(help_text=b'Id: Ejem. 1', to='simulador.City')),
             ],
             options={
                 'ordering': ['first_name'],
@@ -162,7 +186,7 @@ class Migration(migrations.Migration):
                 ('practicing', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
-                'ordering': ['created_at'],
+                'ordering': ['-created_at'],
             },
         ),
         migrations.CreateModel(
@@ -183,7 +207,7 @@ class Migration(migrations.Migration):
                 ('list', models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
             ],
             options={
-                'ordering': ['created_at'],
+                'ordering': ['-created_at'],
             },
         ),
         migrations.CreateModel(
@@ -209,6 +233,20 @@ class Migration(migrations.Migration):
                 ('image', models.ImageField(null=True, upload_to=b'', blank=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
+            ],
+            options={
+                'ordering': ['name'],
+            },
+        ),
+        migrations.CreateModel(
+            name='ReportRepository',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(unique=True, max_length=40)),
+                ('file', models.FileField(upload_to=b'ReportRepository/')),
+                ('created_at', models.DateField(auto_now_add=True)),
+                ('account', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('images', models.ManyToManyField(to='simulador.ImageRepository')),
             ],
             options={
                 'ordering': ['name'],
@@ -245,7 +283,7 @@ class Migration(migrations.Migration):
             name='ResultsZone',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('zone', models.CharField(max_length=5)),
+                ('zone', models.IntegerField()),
                 ('time', models.IntegerField()),
                 ('score', models.IntegerField()),
             ],
@@ -336,12 +374,17 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='practices',
             name='results',
-            field=models.ManyToManyField(help_text=b'\n                                        [\n                                            {\n                                                "lesson":1,\n                                                "type_of_fire":1,\n                                                "position":2,\n                                                "results_zone":[\n                                                    {\n                                                        "zone": "10",\n                                                        "time": 3000,\n                                                        "score": 10\n                                                    },\n                                                    {\n                                                        "zone": "3",\n                                                        "time": 3000,\n                                                        "score": 3\n                                                    }\n                                                ]\n                                            },\n                                            {\n                                                "lesson":1,\n                                                "type_of_fire":2,\n                                                "position":2,\n                                                "results_zone":[\n                                                    {\n                                                        "zone": "5",\n                                                        "time": 3000,\n                                                        "score": 10\n                                                    },\n                                                    {\n                                                        "zone": "5",\n                                                        "time": 3000,\n                                                        "score": 5\n                                                    }\n                                                ]\n                                            }\n                                        ]\n                                    ', to='simulador.Results'),
+            field=models.ManyToManyField(help_text=b'\n                                        [\n                                            {\n                                                "lesson":1,\n                                                "type_of_fire":1,\n                                                "position":2,\n                                                "results_zone":[\n                                                    {\n                                                        "zone": 10,\n                                                        "time": 3000,\n                                                        "score": 10\n                                                    },\n                                                    {\n                                                        "zone": 3,\n                                                        "time": 3000,\n                                                        "score": 3\n                                                    }\n                                                ]\n                                            },\n                                            {\n                                                "lesson":1,\n                                                "type_of_fire":2,\n                                                "position":2,\n                                                "results_zone":[\n                                                    {\n                                                        "zone": 5,\n                                                        "time": 3000,\n                                                        "score": 10\n                                                    },\n                                                    {\n                                                        "zone": 5,\n                                                        "time": 3000,\n                                                        "score": 5\n                                                    }\n                                                ]\n                                            }\n                                        ]\n                                    ', to='simulador.Results'),
         ),
         migrations.AddField(
             model_name='lesson',
             name='type_of_fire',
             field=models.ManyToManyField(to='simulador.TypeOfFire'),
+        ),
+        migrations.AddField(
+            model_name='custompractices',
+            name='results',
+            field=models.ManyToManyField(help_text=b'\n                                        [\n                                            {\n                                                "lesson":1,\n                                                "type_of_fire":1,\n                                                "position":2,\n                                                "results_zone":[\n                                                    {\n                                                        "zone": 10,\n                                                        "time": 3000,\n                                                        "score": 10\n                                                    },\n                                                    {\n                                                        "zone": 3,\n                                                        "time": 3000,\n                                                        "score": 3\n                                                    }\n                                                ]\n                                            },\n                                            {\n                                                "lesson":1,\n                                                "type_of_fire":2,\n                                                "position":2,\n                                                "results_zone":[\n                                                    {\n                                                        "zone": 5,\n                                                        "time": 3000,\n                                                        "score": 10\n                                                    },\n                                                    {\n                                                        "zone": 5,\n                                                        "time": 3000,\n                                                        "score": 5\n                                                    }\n                                                ]\n                                            }\n                                        ]\n                                    ', to='simulador.Results'),
         ),
         migrations.AddField(
             model_name='battalion',
@@ -351,12 +394,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='account',
             name='city',
-            field=models.ForeignKey(blank=True, to='simulador.City', help_text=b'Id: Ejem. 1', null=True),
+            field=models.ForeignKey(help_text=b'Id: Ejem. 1', to='simulador.City'),
         ),
         migrations.AddField(
             model_name='account',
             name='military_grade',
-            field=models.ForeignKey(blank=True, to='simulador.MilitaryGrade', null=True),
+            field=models.ForeignKey(to='simulador.MilitaryGrade'),
         ),
         migrations.AddField(
             model_name='account',

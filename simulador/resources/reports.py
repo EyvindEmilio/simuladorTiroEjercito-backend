@@ -9,13 +9,16 @@ from easy_pdf.views import PDFTemplateView
 from reportlab.graphics.charts.piecharts import Pie
 from reportlab.graphics.shapes import Drawing, String
 from reportlab.lib.colors import PCMYKColor
+from simple_audit.models import Audit
 from simulador.resources.account import AccountSerializer, Account
 from simulador.resources.custom_practices import CustomPractices
 from simulador.resources.image_repository import ImageRepository, ImageRepositorySerializer
 from simulador.resources.lesson import LessonSerializer, Lesson
+from simulador.resources.logs import AuditSerializer
 from simulador.resources.military_grade import MilitaryGradeSerializer, MilitaryGrade
 from simulador.resources.position import PositionSerializer, Position
 from simulador.resources.target_resource import TargetSerializer, Target
+from simulador.resources.type_of_fire import TypeOfFireSerializer, TypeOfFire
 from simuladorTiroEjercitoBackend.settings import GET_API_URL
 from xhtml2pdf import pisa
 
@@ -70,6 +73,33 @@ ReportModels = {
             {"label": "Correo", "name": "email", "width": "30%", "type": "text"},
             {"label": "Carnet", "name": "ci", "width": "10%", "type": "text"},
             {"label": "Última modificación", "name": "updated_at", "width": "35%", "type": "datetime"}
+        )
+    },
+    "type_of_fire": {
+        "title": "Tipo de fuego",
+        "data": TypeOfFireSerializer(TypeOfFire.objects.all(), many=True).data,
+        "show_index": True,
+        "fields": (
+            {"label": "Nombre", "name": "name", "width": "20%", "type": "text"},
+            {"label": "Distancia (metros)", "name": "distance", "width": "10%", "type": "text", "class": "right"},
+            {"label": "Cartuchos", "name": "cartridges", "width": "10%", "type": "text", "class": "right"},
+            {"label": "Tiempo (segundos)", "name": "max_time", "width": "10%", "type": "text", "class": "right"},
+            {"label": "Puntuación mínima", "name": "min_score", "width": "10%", "type": "text", "class": "right"},
+            {"label": "Puntuación máxima", "name": "max_score", "width": "10%", "type": "text", "class": "right"},
+            {"label": "Última modificación", "name": "updated_at", "width": "25%", "type": "datetime", "class": "right"}
+        )
+    },
+    "logs": {
+        "title": "Registro de actividad en el sistema",
+        "data": AuditSerializer(Audit.objects.all(), many=True).data,
+        "show_index": True,
+        "fields": (
+            {"label": "Id", "name": "id", "width": "10%", "type": "text", "class": "center"},
+            {"label": "Fecha", "name": "date", "width": "20%", "type": "datetime", "class": "right"},
+            {"label": "Operación", "name": "operation", "width": "10%", "type": "text", "class": "right"},
+            {"label": "Tabla", "name": "content_type.name", "width": "10%", "type": "text", "class": "right"},
+            {"label": "Descripción", "name": "description", "width": "40%", "type": "text", "class": "right"},
+            {"label": "Dirección IP", "name": "audit_request", "width": "10%", "type": "text", "class": "right"}
         )
     }
 }

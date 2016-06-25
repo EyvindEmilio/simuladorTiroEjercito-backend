@@ -148,7 +148,7 @@
     "pk": 2,
     "fields": {
       "name": "Teniente Coronel",
-      "short": "Tne. Cnl",
+      "short": "Tcnl",
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -158,7 +158,7 @@
     "pk": 3,
     "fields": {
       "name": "Sargento Primero",
-      "short": "Sto I",
+      "short": "Sgto I",
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -168,7 +168,7 @@
     "pk": 4,
     "fields": {
       "name": "Sargento Segundo",
-      "short": "Sto II",
+      "short": "Sgto II",
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -178,7 +178,7 @@
     "pk": 5,
     "fields": {
       "name": "Sargento Tercero",
-      "short": "Sto. III",
+      "short": "Sgto III",
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -198,7 +198,7 @@
     "pk": 7,
     "fields": {
       "name": "Subteniente",
-      "short": "Sub. Tnte",
+      "short": "Subtte",
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -208,7 +208,7 @@
     "pk": 8,
     "fields": {
       "name": "Mayor",
-      "short": "Myr",
+      "short": "My",
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -218,7 +218,7 @@
     "pk": 9,
     "fields": {
       "name": "Cadete",
-      "short": "Cad",
+      "short": "Cdte",
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -234,6 +234,26 @@
     }
   },
   {
+    "model": "simulador.MilitaryGrade",
+    "pk": 11,
+    "fields": {
+      "name": "General",
+      "short": "Gral",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
+    "model": "simulador.MilitaryGrade",
+    "pk": 12,
+    "fields": {
+      "name": "Teniente",
+      "short": "Tte",
+      "created_at": "1993-03-12",
+      "updated_at": "1993-03-12"
+    }
+  },
+  {
     "model": "simulador.Account",
     "pk": 1,
     "fields": {
@@ -244,7 +264,7 @@
       "is_active": true,
       "username": "emilio.coaquira",
       "email": "eyvind.coaquira@gmail.com",
-      "image": null,
+      "image": "./People/images/9981765.jpg",
       "phone_number": "75230567",
       "gender": "M",
       "ci": "9981765",
@@ -269,16 +289,16 @@
       "is_active": true,
       "username": "carlos.gutierrez",
       "email": "carlosg1711@gmail.com",
-      "image": null,
-      "phone_number": "75001011",
+      "image": "./People/images/6850083.jpg",
+      "phone_number": "6850083",
       "gender": "M",
-      "ci": "1000001",
+      "ci": "6850083",
       "first_name": "Carlos Jesus",
       "last_name": "Gutierez Guarachi",
       "date_of_birth": "1993-03-12",
       "city": 1,
       "military_grade": 10,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
+      "password": "pbkdf2_sha256$20000$4RcTiM55FSza$aAgAX0egTOqTZlUrxhA65MTWObdn/VJxwDzFgU+XTyM=",
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -303,32 +323,7 @@
       "date_of_birth": "1993-03-12",
       "city": 1,
       "military_grade": 7,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
-      "created_at": "1993-03-12",
-      "updated_at": "1993-03-12"
-    }
-  },
-  {
-    "model": "simulador.Account",
-    "pk": 4,
-    "fields": {
-      "is_admin": false,
-      "is_staff": true,
-      "is_superuser": false,
-      "user_type": 2,
-      "is_active": true,
-      "username": "alvaro.ramos",
-      "email": "u4@q.com",
-      "image": null,
-      "phone_number": "75001020",
-      "gender": "M",
-      "ci": "1000003",
-      "first_name": "Alvaro",
-      "last_name": "Ramos Villca",
-      "date_of_birth": "1993-03-12",
-      "city": 1,
-      "military_grade": 7,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
+      "password": "pbkdf2_sha256$20000$axOBKBeYNBV6$JJXYsHYekJgJqL37O7nb05q4N43P0N7AWkWJ5ac0tD0=",
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -353,336 +348,20 @@
       "date_of_birth": "1993-03-12",
       "city": 1,
       "military_grade": 7,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
+      "password": "pbkdf2_sha256$20000$keciHnE6TrmT$ufgXi6SXRr1aTINiAH+8GVKh+4HXuiKiU61DohPPAsI=",
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
   },
-  {
-    "model": "simulador.Account",
-    "pk": 6,
-    "fields": {
-      "is_admin": false,
-      "is_staff": true,
-      "is_superuser": false,
-      "user_type": 3,
-      "is_active": true,
-      "username": "luis.flores",
-      "email": "u6@q.com",
-      "image": null,
-      "phone_number": "75003010",
-      "gender": "M",
-      "ci": "1000005",
-      "first_name": "Luis",
-      "last_name": "Flores",
-      "date_of_birth": "1993-03-12",
-      "city": 1,
-      "military_grade": 7,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
-      "created_at": "1993-03-12",
-      "updated_at": "1993-03-12"
-    }
-  },
-  {
-    "model": "simulador.Account",
-    "pk": 7,
-    "fields": {
-      "is_admin": false,
-      "is_staff": true,
-      "is_superuser": false,
-      "user_type": 4,
-      "is_active": true,
-      "username": "hugo.balboa",
-      "email": "u7@q.com",
-      "image": null,
-      "phone_number": "75004010",
-      "gender": "M",
-      "ci": "1000006",
-      "first_name": "Hugo",
-      "last_name": "Balboa",
-      "date_of_birth": "1993-03-12",
-      "city": 1,
-      "military_grade": 9,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
-      "created_at": "1993-03-12",
-      "updated_at": "1993-03-12"
-    }
-  },
-  {
-    "model": "simulador.Account",
-    "pk": 8,
-    "fields": {
-      "is_admin": false,
-      "is_staff": true,
-      "is_superuser": false,
-      "user_type": 4,
-      "is_active": true,
-      "username": "wilson.nina",
-      "email": "u8@q.com",
-      "image": null,
-      "phone_number": "75005010",
-      "gender": "M",
-      "ci": "1000007",
-      "first_name": "Wilson",
-      "last_name": "Nina Nina",
-      "date_of_birth": "1993-03-12",
-      "city": 1,
-      "military_grade": 9,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
-      "created_at": "1993-03-12",
-      "updated_at": "1993-03-12"
-    }
-  },
-  {
-    "model": "simulador.Account",
-    "pk": 9,
-    "fields": {
-      "is_admin": false,
-      "is_staff": true,
-      "is_superuser": false,
-      "user_type": 4,
-      "is_active": true,
-      "username": "oscar.romero",
-      "email": "u9@q.com",
-      "image": null,
-      "phone_number": "75006010",
-      "gender": "M",
-      "ci": "1000008",
-      "first_name": "Oscar",
-      "last_name": "Romero Diaz",
-      "date_of_birth": "1993-03-12",
-      "city": 1,
-      "military_grade": 9,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
-      "created_at": "1993-03-12",
-      "updated_at": "1993-03-12"
-    }
-  },
-  {
-    "model": "simulador.Account",
-    "pk": 10,
-    "fields": {
-      "is_admin": false,
-      "is_staff": true,
-      "is_superuser": false,
-      "user_type": 4,
-      "is_active": true,
-      "username": "usuario_10",
-      "email": "u10@q.com",
-      "image": null,
-      "phone_number": "77001010",
-      "gender": "M",
-      "ci": "1000009",
-      "first_name": "Usuario 10",
-      "last_name": "appellido 10",
-      "date_of_birth": "1993-03-12",
-      "city": 1,
-      "military_grade": 9,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
-      "created_at": "1993-03-12",
-      "updated_at": "1993-03-12"
-    }
-  },
-  {
-    "model": "simulador.Account",
-    "pk": 11,
-    "fields": {
-      "is_admin": false,
-      "is_staff": true,
-      "is_superuser": false,
-      "user_type": 4,
-      "is_active": true,
-      "username": "usuario_11",
-      "email": "u11@q.com",
-      "image": null,
-      "phone_number": "78001010",
-      "gender": "M",
-      "ci": "1000010",
-      "first_name": "Usuario 11",
-      "last_name": "appellido 11",
-      "date_of_birth": "1993-03-12",
-      "city": 1,
-      "military_grade": 9,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
-      "created_at": "1993-03-12",
-      "updated_at": "1993-03-12"
-    }
-  },
-  {
-    "model": "simulador.Account",
-    "pk": 12,
-    "fields": {
-      "is_admin": false,
-      "is_staff": true,
-      "is_superuser": false,
-      "user_type": 4,
-      "is_active": true,
-      "username": "usuario_12",
-      "email": "u12@q.com",
-      "image": null,
-      "phone_number": "70001010",
-      "gender": "M",
-      "ci": "1000011",
-      "first_name": "Rodrigo Torrez",
-      "last_name": "Flores Mollinedo",
-      "date_of_birth": "1993-03-12",
-      "city": 1,
-      "military_grade": 9,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
-      "created_at": "1993-03-12",
-      "updated_at": "1993-03-12"
-    }
-  },
-  {
-    "model": "simulador.Account",
-    "pk": 13,
-    "fields": {
-      "is_admin": false,
-      "is_staff": true,
-      "is_superuser": false,
-      "user_type": 4,
-      "is_active": true,
-      "username": "usuario_13",
-      "email": "u13@q.com",
-      "image": null,
-      "phone_number": "79001010",
-      "gender": "M",
-      "ci": "1000012",
-      "first_name": "Ernesto",
-      "last_name": "Tapia Pinto",
-      "date_of_birth": "1993-03-12",
-      "city": 1,
-      "military_grade": 9,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
-      "created_at": "1993-03-12",
-      "updated_at": "1993-03-12"
-    }
-  },
-  {
-    "model": "simulador.Account",
-    "pk": 14,
-    "fields": {
-      "is_admin": false,
-      "is_staff": true,
-      "is_superuser": false,
-      "user_type": 4,
-      "is_active": true,
-      "username": "usuario_14",
-      "email": "u14@q.com",
-      "image": null,
-      "phone_number": "75011010",
-      "gender": "M",
-      "ci": "1000013",
-      "first_name": "Guillermo",
-      "last_name": "Yana Torrico",
-      "date_of_birth": "1993-03-12",
-      "city": 1,
-      "military_grade": 9,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
-      "created_at": "1993-03-12",
-      "updated_at": "1993-03-12"
-    }
-  },
-  {
-    "model": "simulador.Account",
-    "pk": 15,
-    "fields": {
-      "is_admin": false,
-      "is_staff": true,
-      "is_superuser": false,
-      "user_type": 4,
-      "is_active": true,
-      "username": "usuario_15",
-      "email": "u15@q.com",
-      "image": null,
-      "phone_number": "75021010",
-      "gender": "M",
-      "ci": "1000014",
-      "first_name": "Jose",
-      "last_name": "Aruquipa Medina",
-      "date_of_birth": "1993-03-12",
-      "city": 1,
-      "military_grade": 9,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
-      "created_at": "1993-03-12",
-      "updated_at": "1993-03-12"
-    }
-  },
-  {
-    "model": "simulador.Account",
-    "pk": 16,
-    "fields": {
-      "is_admin": false,
-      "is_staff": true,
-      "is_superuser": false,
-      "user_type": 4,
-      "is_active": true,
-      "username": "usuario_16",
-      "email": "u16@q.com",
-      "image": null,
-      "phone_number": "75031010",
-      "gender": "M",
-      "ci": "1000015",
-      "first_name": "Rudy",
-      "last_name": "Mamani Luke",
-      "date_of_birth": "1993-03-12",
-      "city": 1,
-      "military_grade": 9,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
-      "created_at": "1993-03-12",
-      "updated_at": "1993-03-12"
-    }
-  },
-  {
-    "model": "simulador.Account",
-    "pk": 17,
-    "fields": {
-      "is_admin": false,
-      "is_staff": true,
-      "is_superuser": false,
-      "user_type": 4,
-      "is_active": true,
-      "username": "usuario_17",
-      "email": "u17@q.com",
-      "image": null,
-      "phone_number": "75041010",
-      "gender": "M",
-      "ci": "1000016",
-      "first_name": "Gabriel",
-      "last_name": "Lora Espejo",
-      "date_of_birth": "1993-03-12",
-      "city": 1,
-      "military_grade": 9,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
-      "created_at": "1993-03-12",
-      "updated_at": "1993-03-12"
-    }
-  },
-  {
-    "model": "simulador.Account",
-    "pk": 18,
-    "fields": {
-      "is_admin": false,
-      "is_staff": true,
-      "is_superuser": false,
-      "user_type": 4,
-      "is_active": true,
-      "username": "usuario_18",
-      "email": "u18@q.com",
-      "image": null,
-      "phone_number": "75051010",
-      "gender": "M",
-      "ci": "1000017",
-      "first_name": "Victor",
-      "last_name": "Velasco Alameda",
-      "date_of_birth": "1993-03-12",
-      "city": 1,
-      "military_grade": 9,
-      "password": "pbkdf2_sha256$20000$32W9ZkP6Hjig$BKPUNgW2rehws2hgf5mCcS+UYsK4eBEwsZzAYnROMFg=",
-      "created_at": "1993-03-12",
-      "updated_at": "1993-03-12"
-    }
-  },
+  {"model": "simulador.Account","pk": 6,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false,"user_type": 4,"is_active": true,"username": "vanesa.mamani","email": "vanesa.mamani@emi.edu.bo","image": "./People/images/9225152.jpg","phone_number": "9225152","gender": "F","ci": "9225152","first_name": "Vanesa","last_name": "Mamani","date_of_birth": "1993-03-12","city": 1,"military_grade": 9,"password": "pbkdf2_sha256$20000$4iEcFy2wR5Q3$wBFAN+0R5xTRPgYJSq2HGWpR6eAyBCtgKnW2BJbYY6c=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 7,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false,"user_type": 4,"is_active": true,"username": "maya.sanchez","email": "maya.sanchez@emi.edu.bo","image": "./People/images/5991698.jpg","phone_number": "5991698","gender": "F","ci": "5991698","first_name": "Maya Isabel","last_name": "Sanchez Gamboa","date_of_birth": "1993-03-12","city": 1,"military_grade": 9,"password": "pbkdf2_sha256$20000$jXdIlKVSkdoj$hIe9Yooz2YADU9iV9SQ3khjhlCEGxffw68aTx+k9SR4=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 8,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false,"user_type": 4,"is_active": true,"username": "william.mendoza","email": "william.mendoza@emi.edu.bo","image": "./People/images/4810353.jpg","phone_number": "4810353","gender": "M","ci": "4810353","first_name": "William Cesar","last_name": "Mendoza Alarcon","date_of_birth": "1993-03-12","city": 1,"military_grade": 9,"password": "pbkdf2_sha256$20000$S00sp67qY70X$V54xPUfmah2kcpWAGJ904zCffeZ/ThFwsPFUYURhK3I=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 9,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false,"user_type": 4,"is_active": true,"username": "diego.marino","email": "diego.marino@emi.edu.bo","image": "./People/images/4858850.jpg","phone_number": "4858850","gender": "M","ci": "4858850","first_name": "Diego","last_name": "Marino Peralta","date_of_birth": "1993-03-12","city": 1,"military_grade": 9,"password": "pbkdf2_sha256$20000$TWRptAxTNEiW$O0y82X7dqgFBuLckRLvcZKNGYl/8zui+o/uxlwDZAw4=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 10,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false,"user_type": 4,"is_active": true,"username": "erik.blanco","email": "erik.blanco@emi.edu.bo","image": "./People/images/6813932.jpg","phone_number": "6813932","gender": "M","ci": "6813932","first_name": "Erik Abraham","last_name": "Blanco Paucara","date_of_birth": "1993-03-12","city": 1,"military_grade": 9,"password": "pbkdf2_sha256$20000$IKqb0w1u3STp$xhCNTCDE27rG/lp8M5kFngf2BaDxm5s9I6W5N6BpH9Q=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 11,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false,"user_type": 4,"is_active": true,"username": "roberto.silvestre","email": "roberto.silvestre@emi.edu.bo","image": "./People/images/6986306.jpg","phone_number": "6986306","gender": "M","ci": "6986306","first_name": "Roberto","last_name": "Silvestre Castillo","date_of_birth": "1993-03-12","city": 1,"military_grade": 9,"password": "pbkdf2_sha256$20000$B8EqZhDPYik9$CTbyBlSjRNHGYw7GjHV3WV/SVaru02H/HDLJovm/nLk=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 12,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false,"user_type": 4,"is_active": true,"username": "grecia.machaca","email": "grecia.machaca@emi.edu.bo","image": "./People/images/8344615.jpg","phone_number": "8344615","gender": "F","ci": "8344615","first_name": "Grecia Gorgelinda","last_name": "Machaca Yapura","date_of_birth": "1993-03-12","city": 1,"military_grade": 9,"password": "pbkdf2_sha256$20000$dFvklFvrDPpY$Be3gZRMqpTZz9k94wl9iAeF+1jbEZwAo9d+eo6kbrXk=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 13,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false,"user_type": 4,"is_active": true,"username": "alejandra.alvarez","email": "alejandra.alvarez@emi.edu.bo","image": "./People/images/8463804.jpg","phone_number": "8463804","gender": "F","ci": "8463804","first_name": "Alejandra","last_name": "Alvarez Chura","date_of_birth": "1993-03-12","city": 1,"military_grade": 9,"password": "pbkdf2_sha256$20000$VSR8ErYw1EnG$HX5q060NtNFDUcxLMLag9cL6NrsKS5ThEJhi0bGRVt0=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
+  {"model": "simulador.Account","pk": 14,"fields": {"is_admin": false,"is_staff": true,"is_superuser": false,"user_type": 4,"is_active": true,"username": "rita.canaviri","email": "rita.canaviri@emi.edu.bo","image": "./People/images/8426216.jpg","phone_number": "8426216","gender": "F","ci": "8426216","first_name": "Rita","last_name": "Canaviri Cama","date_of_birth": "1993-03-12","city": 1,"military_grade": 9,"password": "pbkdf2_sha256$20000$Nkk5Jao2asya$7zLeoAI2ml6cweaCxslg8BnxPtu9RU9ZIlgLvHKaZR4=","created_at": "1993-03-12","updated_at": "1993-03-12"}},
   {
     "model": "simulador.Target",
     "pk": 1,
@@ -927,7 +606,10 @@
       "name": "Primera leccion de tiro",
       "description": "",
       "image": "./primera_leccion_de_tiro.jpg",
-      "type_of_fire": [1, 2],
+      "type_of_fire": [
+        1,
+        2
+      ],
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -939,7 +621,10 @@
       "name": "Segunda leccion de tiro",
       "description": "",
       "image": "./primera_leccion_de_tiro.jpg",
-      "type_of_fire": [3, 4],
+      "type_of_fire": [
+        3,
+        4
+      ],
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -951,7 +636,11 @@
       "name": "Tercera leccion de tiro",
       "description": "",
       "image": "./primera_leccion_de_tiro.jpg",
-      "type_of_fire": [5, 6, 7],
+      "type_of_fire": [
+        5,
+        6,
+        7
+      ],
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
