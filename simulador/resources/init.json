@@ -473,14 +473,10 @@
       "name": "Fuego Lento 'A'",
       "position": 1,
       "distance": 15,
-      "selector": "",
       "target": 1,
-      "chargers": 1,
       "cartridges": 5,
-      "modality": "",
       "max_time": 300,
       "min_score": 30,
-      "max_score": 50,
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -492,14 +488,10 @@
       "name": "Fuego Rapido 'A'",
       "position": 4,
       "distance": 25,
-      "selector": "",
       "target": 3,
-      "chargers": 1,
       "cartridges": 5,
-      "modality": "",
       "max_time": 12,
       "min_score": 3,
-      "max_score": 25,
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -511,14 +503,10 @@
       "name": "Fuego Lento 'B'",
       "position": 3,
       "distance": 15,
-      "selector": "",
       "target": 1,
-      "chargers": 1,
       "cartridges": 5,
-      "modality": "",
       "max_time": 300,
       "min_score": 30,
-      "max_score": 50,
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -530,14 +518,10 @@
       "name": "Fuego Rapido 'B'",
       "position": 3,
       "distance": 25,
-      "selector": "",
       "target": 3,
-      "chargers": 1,
       "cartridges": 5,
-      "modality": "",
       "max_time": 12,
       "min_score": 3,
-      "max_score": 25,
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -549,14 +533,10 @@
       "name": "Fuego rapido 'C'",
       "position": 1,
       "distance": 10,
-      "selector": "",
       "target": 3,
-      "chargers": 1,
       "cartridges": 2,
-      "modality": "",
       "max_time": 5,
       "min_score": 1,
-      "max_score": 2,
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -568,14 +548,10 @@
       "name": "Fuego rapido 'D'",
       "position": 1,
       "distance": 15,
-      "selector": "",
       "target": 3,
-      "chargers": 1,
       "cartridges": 2,
-      "modality": "",
       "max_time": 5,
       "min_score": 1,
-      "max_score": 2,
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }
@@ -587,14 +563,10 @@
       "name": "Fuego rapido 'E'",
       "position": 1,
       "distance": 25,
-      "selector": "",
       "target": 3,
-      "chargers": 1,
       "cartridges": 2,
-      "modality": "",
       "max_time": 5,
       "min_score": 1,
-      "max_score": 2,
       "created_at": "1993-03-12",
       "updated_at": "1993-03-12"
     }

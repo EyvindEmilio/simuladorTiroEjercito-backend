@@ -1,0 +1,72 @@
+{
+  "result": "Formato Json no valido",
+  "env": {
+    "practicing": 12,
+    "results": [
+      {
+        "position": 1,
+        "lesson": 1,
+        "results_zone": [
+          {
+            "score": 0,
+            "zone": 0,
+            "time": 0
+          },
+          {
+            "score": 0,
+            "zone": 0,
+            "time": 0
+          },
+          {
+            "score": 0,
+            "zone": 0,
+            "time": 0
+          },
+          {
+            "score": 0,
+            "zone": 0,
+            "time": 0
+          },
+          {
+            "score": 0,
+            "zone": 0,
+            "time": 0
+          }
+        ],
+        "type_of_fire": 1
+      },
+      {
+        "position": 4,
+        "lesson": 1,
+        "results_zone": [
+          {
+            "score": 0,
+            "zone": 0,
+            "time": 0
+          },
+          {
+            "score": 0,
+            "zone": 0,
+            "time": 0
+          },
+          {
+            "score": 0,
+            "zone": 0,
+            "time": 0
+          },
+          {
+            "score": 0,
+            "zone": 0,
+            "time": 0
+          },
+          {
+            "score": 0,
+            "zone": 0,
+            "time": 0
+          }
+        ],
+        "type_of_fire": 2
+      }
+    ]
+  }
+}

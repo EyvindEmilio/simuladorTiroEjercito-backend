@@ -85,7 +85,6 @@ ReportModels = {
             {"label": "Cartuchos", "name": "cartridges", "width": "10%", "type": "text", "class": "right"},
             {"label": "Tiempo (segundos)", "name": "max_time", "width": "10%", "type": "text", "class": "right"},
             {"label": "Puntuación mínima", "name": "min_score", "width": "10%", "type": "text", "class": "right"},
-            {"label": "Puntuación máxima", "name": "max_score", "width": "10%", "type": "text", "class": "right"},
             {"label": "Última modificación", "name": "updated_at", "width": "25%", "type": "datetime", "class": "right"}
         )
     },

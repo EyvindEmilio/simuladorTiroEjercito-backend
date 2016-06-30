@@ -9,14 +9,10 @@ class TypeOfFire(models.Model):
     name = models.CharField(max_length=40, unique=False, blank=False)
     position = models.ForeignKey(Position)
     distance = models.FloatField(blank=False, null=False)
-    selector = models.CharField(max_length=30, blank=True, null=True)
     target = models.ForeignKey(Target)
-    chargers = models.IntegerField(blank=False, null=False)
     cartridges = models.IntegerField(blank=False, null=False)
-    modality = models.TextField(max_length=100, blank=True, null=True)
     max_time = models.IntegerField(blank=False, null=False)
     min_score = models.IntegerField(blank=False, null=False)
-    max_score = models.IntegerField(blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -31,8 +27,7 @@ class TypeOfFireSerializer(serializers.ModelSerializer):
     class Meta:
         model = TypeOfFire
         fields = (
-            'id', 'name', 'position', 'distance', 'selector', 'target', 'chargers', 'cartridges', 'modality',
-            'max_time', 'min_score', 'max_score', 'updated_at')
+            'id', 'name', 'position', 'distance', 'target', 'cartridges', 'max_time', 'min_score', 'updated_at')
 
 
 class TypeOfFireDetailSerializer(serializers.ModelSerializer):
@@ -42,8 +37,7 @@ class TypeOfFireDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = TypeOfFire
         fields = (
-            'id', 'name', 'position', 'distance', 'selector', 'target', 'chargers', 'cartridges', 'modality',
-            'max_time', 'min_score', 'max_score', 'updated_at')
+            'id', 'name', 'position', 'distance', 'target', 'cartridges', 'max_time', 'min_score', 'updated_at')
 
 
 class TypeOfFireViewSet(viewsets.ModelViewSet):
