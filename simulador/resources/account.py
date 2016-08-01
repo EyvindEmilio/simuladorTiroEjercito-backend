@@ -57,7 +57,6 @@ class Account(AbstractBaseUser):
     ##Info
     email = models.EmailField(unique=True, null=True, blank=True)
     image = models.ImageField(upload_to="People/images/", default='')
-    phone_number = models.CharField(max_length=10, blank=True)
     gender = models.CharField(max_length=1, choices=GENDERS_CHOICES)
     first_name = models.CharField(max_length=20, help_text='Ejem. Juan', unique=False)
     last_name = models.CharField(max_length=20, help_text='Ejem. Peres', blank=True, null=True, unique=False)
@@ -98,14 +97,14 @@ class Account(AbstractBaseUser):
     def is_admin_user(self):
         return self.is_admin
 
-    # def delete(self):
-    #     if self.city:
-    #         self.city.delete()
-    #     if self.user_type:
-    #         self.user_type.delete()
-    #     if self.military_grade:
-    #         self.military_grade.delete()
-    #     super(Account, self).delete()
+        # def delete(self):
+        #     if self.city:
+        #         self.city.delete()
+        #     if self.user_type:
+        #         self.user_type.delete()
+        #     if self.military_grade:
+        #         self.military_grade.delete()
+        #     super(Account, self).delete()
 
 
 class AccountShortDetailSerializer(serializers.ModelSerializer):
@@ -122,8 +121,7 @@ class AccountShortDetailSerializer(serializers.ModelSerializer):
         model = Account
 
         fields = (
-            'id', 'user_type', 'username', 'email', 'image',
-            'ci', 'first_name', 'last_name', 'city', 'military_grade')
+            'id', 'user_type', 'username', 'email', 'image', 'ci', 'first_name', 'last_name', 'city', 'military_grade')
 
 
 class AccountSerializer(serializers.ModelSerializer):
@@ -138,8 +136,8 @@ class AccountSerializer(serializers.ModelSerializer):
 
         fields = (
             'is_admin', 'is_staff', 'is_superuser', 'user_type', 'id', 'is_active', 'username', 'email', 'image',
-            'phone_number', 'gender', 'ci', 'first_name', 'last_name', 'date_of_birth', 'city', 'military_grade',
-            'password', 'created_at', 'updated_at')
+            'gender', 'ci', 'first_name', 'last_name', 'date_of_birth', 'city', 'military_grade', 'password',
+            'created_at', 'updated_at')
 
     def create(self, validated_data):
         request = self.context.get('request', None)
@@ -161,7 +159,7 @@ class AccountDetailSerializer(serializers.ModelSerializer):
         model = Account
 
         fields = (
-            'id', 'is_active', 'username', 'email', 'image', 'phone_number', 'user_type', 'gender', 'ci', 'first_name',
+            'id', 'is_active', 'username', 'email', 'image', 'user_type', 'gender', 'ci', 'first_name',
             'last_name', 'date_of_birth', 'city', 'military_grade', 'created_at', 'updated_at')
 
 

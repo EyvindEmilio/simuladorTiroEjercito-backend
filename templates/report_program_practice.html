@@ -124,7 +124,6 @@
                             <th width="10%">Nro</th>
                             <th width="20%">Grado</th>
                             <th width="30%">Apellidos y nombres</th>
-                            <th width="10%">Celular</th>
                             <th width="30%">Estado</th>
                         </tr>
                         </thead>
@@ -134,7 +133,6 @@
                                 <td>{{ forloop.counter }}</td>
                                 <td>{{ user_not_practice.military_grade.name }}</td>
                                 <td>{{ user_not_practice.last_name }} {{ user_not_practice.first_name }}</td>
-                                <td class="center">{{ user_not_practice.phone_number }}</td>
                                 <td class="center" style="color: #FEAD92">REPROBADO</td>
                             </tr>
                         {% endfor %}

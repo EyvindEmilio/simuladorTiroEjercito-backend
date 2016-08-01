@@ -140,7 +140,6 @@ class PracticesViewSet(viewsets.ModelViewSet):
     #     progreso['account']['first_name'] = info_practice['account']['first_name']
     #     progreso['account']['last_name'] = info_practice['account']['last_name']
     #     progreso['account']['ci'] = info_practice['account']['ci']
-    #     progreso['account']['phone_number'] = info_practice['account']['phone_number']
     #     progreso['account']['email'] = info_practice['account']['email']
     #     progreso['account']['user_type'] = {'id': info_practice['account']['user_type']['id']}
     #     progreso['account']['user_type']['name'] = info_practice['account']['user_type']['name']
